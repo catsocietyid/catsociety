@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CatSociety – Semua yang Kucing Kamu Suka</title>
+<meta name="description" content="CatSociety: makanan, kebutuhan harian, aksesori, dan layanan pet sitter untuk anabul. Bintaro, Tangerang Selatan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cokelat: #93371d;
+    --krem: #ffffff;
+    --kuning: #fffb8f;
+    --biru: #2fa4c9;
+    --hijau: #2e9e2e;
+    --ungu: #3b1fc4;
+    --teks: #333333;
+    --foto-kosong: #ead9cf;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Nunito", Arial, sans-serif; color: var(--teks); background: var(--krem); line-height: 1.7; }
+  img { display: block; max-width: 100%; height: auto; background: var(--foto-kosong); }
+  a:focus-visible, .tombol:focus-visible { outline: 3px solid #1a73e8; outline-offset: 3px; }
+  .bungkus { width: min(1100px, 92%); margin: 0 auto; }
+
+  /* Header */
+  header .bungkus { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; flex-wrap: wrap; }
+  .logo img { width: 150px; background: transparent; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
+  nav a { display: block; padding: 8px 16px; color: var(--teks); text-decoration: none; font-size: .95rem; }
+  nav a.aktif, nav a:hover { background: var(--cokelat); color: #fff; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px auto; }
+  .hero-teks { background: var(--cokelat); color: #fff; border-radius: 24px; padding: 48px 36px; display: flex; flex-direction: column; justify-content: center; }
+  .hero-teks h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.25; margin: 0 0 24px; }
+  .hero-teks h1 span { color: var(--ungu); font-weight: 700; }
+  .hero-teks p { margin: 0 0 4px; font-size: .95rem; }
+  .hero-foto { border-radius: 24px; overflow: hidden; min-height: 320px; }
+  .hero-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .aksi { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .tombol { display: inline-block; padding: 10px 22px; border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--cokelat); background: #fff; font-weight: 600; }
+  .tombol.kuning { background: var(--kuning); }
+  .tombol:hover { filter: brightness(.95); }
+
+  /* Belanja */
+  .belanja { background: var(--cokelat); color: #fff; padding: 40px 0; }
+  .belanja .bungkus { display: grid; grid-template-columns: 5fr 7fr; gap: 32px; align-items: center; }
+  .belanja img { border-radius: 8px; width: 100%; }
+  .belanja h2 { font-size: 1.8rem; font-weight: 300; margin: 0 0 12px; }
+  .belanja h2 span { color: var(--hijau); font-weight: 700; }
+  .belanja p { margin: 0 0 18px; font-size: .95rem; font-weight: 600; }
+  .toko { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Pet sitter */
+  .sitter { padding: 56px 0; }
+  .sitter h2 { text-align: center; font-size: 1.9rem; font-weight: 600; margin: 0 0 24px; }
+  .sitter .isi { display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: start; }
+  .sitter .teks { text-align: center; font-size: .92rem; }
+  .sitter .teks p { margin: 0 0 10px; }
+  .sitter .foto { display: grid; gap: 14px; }
+  .sitter .foto img { width: 100%; }
+
+  /* Kontak */
+  .kontak { padding: 40px 0 64px; }
+  .kontak .bungkus { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .kontak h2 { font-weight: 300; font-size: 2rem; margin: 0 0 20px; }
+  .info { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .info h3 { margin: 4px 0; font-size: 1.05rem; font-weight: 400; }
+  .info h3 b { color: var(--biru); font-weight: 700; }
+  .info p, .info li { font-size: .85rem; margin: 0; }
+  .info ul { margin: 6px 0 0; padding-left: 18px; }
+  .info a { color: var(--teks); }
+  .ikon { font-size: 1.3rem; }
+  .kontak img { width: 100%; max-height: 420px; object-fit: cover; }
+
+  /* Footer */
+  footer { background: var(--cokelat); color: #fff; padding: 26px 0; font-size: .9rem; }
+  footer .bungkus { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+  footer a { color: #fff; margin-left: 18px; }
+  footer a:first-child { margin-left: 0; }
+
+  /* HP */
+  @media (max-width: 800px) {
+    .hero, .belanja .bungkus, .sitter .isi, .kontak .bungkus { grid-template-columns: 1fr; }
+    .hero-teks { padding: 36px 24px; }
+    .sitter .foto { grid-template-columns: 1fr 1fr; }
+    .info { grid-template-columns: 1fr; }
+    header .bungkus { justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bungkus">
+    <a class="logo" href="#home"><img src="logo.png" alt="Logo CatSociety" width="150" height="150"></a>
+    <nav aria-label="Menu utama">
+      <ul>
+        <li><a class="aktif" href="#home">Home</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+        <li><a href="https://catsociety.duckdns.org/" target="_blank" rel="noopener">Internal Access</a></li>
+        <li><a href="https://mail.zoho.com/" target="_blank" rel="noopener">Login Email</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="home" class="bungkus hero">
+    <div class="hero-teks">
+      <h1>Semua yang<br><span>Kucing</span> Kamu Suka</h1>
+      <p>Hello, Cat Lovers! 🐾</p>
+      <p>Selamat datang di CatSociety!</p>
+      <p>Tempat makanan favorit si meong, kebutuhan hariannya, dan segala hal kecil yang bikin hidup mereka lebih happy.</p>
+      <p>Karena buat kita, anabul bukan sekadar keluarga…</p>
+      <p>Psst… sebenarnya dia juragan yang sedang menyamar. 😼</p>
+      <p>Happy Cats, Happy Humans. 🧡</p>
+      <div class="aksi">
+        <a class="tombol kuning" href="#shop">Jelajahi Produk</a>
+        <a class="tombol" href="#shop">Belanja Sekarang</a>
+      </div>
+    </div>
+    <div class="hero-foto">
+      <img src="hero.jpg" alt="Kucing persia oranye putih duduk di dekat jendela" width="600" height="700">
+    </div>
+  </section>
+
+  <!-- BELANJA -->
+  <section id="shop" class="belanja">
+    <div class="bungkus">
+      <img src="belanja.jpg" alt="Kucing dengan kalung oranye di samping mangkuk makan" width="500" height="340">
+      <div>
+        <h2>Belanja <span>Praktis</span> Online</h2>
+        <p>Temukan dry food, wet food, premium food, treats, tofu litter, dan aksesori kucing favorit di Shopee, Blibli, dan Toco. Pengalaman belanja yang terkurasi ....yang pasti-nya nga bikin kantong jebol dan juragan tetap bahagia (itu kan yang paling penting).</p>
+        <div class="toko">
+          <!-- GANTI alamat di bawah dengan link toko Anda sendiri -->
+          <a class="tombol" href="https://shopee.co.id/" target="_blank" rel="noopener">Shopee</a>
+          <a class="tombol" href="https://www.blibli.com/" target="_blank" rel="noopener">Blibli</a>
+          <a class="tombol" href="https://www.tokopedia.com/" target="_blank" rel="noopener">Toco</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PET SITTER -->
+  <section id="petsitter" class="sitter">
+    <div class="bungkus">
+      <h2>Pet Sitter</h2>
+      <div class="isi">
+        <div class="teks">
+          <p><b><i>Layanan Memanjakan Anabul</i></b></p>
+          <p>Kamu boleh pergi, tapi perhatian buat si meong jangan sampai berhenti. 🐾<br>
+          Ada kalanya kamu harus bekerja, bepergian, atau punya kesibukan lain. Tapi, pikiran tetap tertinggal di rumah…</p>
+          <p>“Si meong sudah makan belum, ya?”<br>“Siapa yang nemenin main?”<br>“Litter box-nya sudah dibersihkan?”</p>
+          <p><b>Tenang, CatSociety siap membantu!</b></p>
+          <p>Melalui layanan Pet Sitter, kami ingin memastikan anabul tetap mendapatkan perhatian dan perawatan saat kamu tidak bisa selalu berada di dekatnya. Karena buat kami, mereka bukan sekadar hewan peliharaan. Mereka anggota keluarga sekaligus juragan kecil yang punya rutinitas dan kebiasaan sendiri. 👑</p>
+          <p>Jadi, kamu bisa menjalani aktivitas dengan lebih tenang, dan si meong tetap merasa diperhatikan.</p>
+          <p><i>You take care of your day. We’ll help take care of your little boss.</i></p>
+        </div>
+        <div class="foto">
+          <img src="petsitter1.jpg" alt="Tiga kucing melihat keluar dari balik jendela" width="260" height="190">
+          <img src="petsitter2.jpg" alt="Perempuan tersenyum memeluk kucing" width="260" height="260">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAK -->
+  <section id="kontak" class="kontak">
+    <div class="bungkus">
+      <div>
+        <h2>Kontak Kami</h2>
+        <div class="info">
+          <div>
+            <div class="ikon" aria-hidden="true">💬</div>
+            <h3><b>WhatsApp</b> Chat</h3>
+            <p><a href="https://wa.me/62896549780033" target="_blank" rel="noopener">0896 - 5497 - 8033</a></p>
+          </div>
+          <div>
+            <div class="ikon" aria-hidden="true">📍</div>
+            <h3>Lokasi <b>Kami</b></h3>
+            <p>Bintaro, Tangerang Selatan</p>
+          </div>
+          <div>
+            <div class="ikon" aria-hidden="true">⏰</div>
+            <h3><b>Jam</b> Operasional</h3>
+            <p>Senin–Sabtu, 09:00–18:00</p>
+          </div>
+          <div>
+            <div class="ikon" aria-hidden="true">🚚</div>
+            <h3><b>Pengiriman</b> Area</h3>
+            <ul>
+              <li>gratis radius &lt; 5 km *</li>
+              <li>Seluruh Indonesia via marketplace</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <img src="kontak.jpg" alt="Anak kucing oranye berbaring" width="600" height="420">
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="bungkus">
+    <span>© CatSociety · catsociety.web.id</span>
+    <span>
+      <a href="https://catsociety.duckdns.org/" target="_blank" rel="noopener">Internal Access</a>
+      <a href="https://mail.zoho.com/" target="_blank" rel="noopener">Login Webmail</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
