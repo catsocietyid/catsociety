@@ -23,7 +23,7 @@
   html { scroll-behavior: smooth; }
   body { margin: 0; font-family: "Nunito", Arial, sans-serif; color: var(--teks); background: var(--krem); line-height: 1.7; }
   img { display: block; max-width: 100%; height: auto; background: var(--foto-kosong); }
-  a:focus-visible, .tombol:focus-visible { outline: 3px solid #1a73e8; outline-offset: 3px; }
+  a:focus-visible, .tombol:focus-visible, button:focus-visible { outline: 3px solid #1a73e8; outline-offset: 3px; }
   .bungkus { width: min(1100px, 92%); margin: 0 auto; }
 
   /* Header */
@@ -31,102 +31,119 @@
   .logo img { width: 150px; background: transparent; }
   nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
   nav a { display: block; padding: 8px 16px; color: var(--teks); text-decoration: none; font-size: .95rem; }
-  nav a.aktif, nav a:hover { background: var(--cokelat); color: #fff; }
+  nav a.aktif, nav a:hover { background: var(--cokelat); color: #fff; border-radius: 6px; }
 
   /* Hero */
   .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px auto; }
   .hero-teks { background: var(--cokelat); color: #fff; border-radius: 24px; padding: 48px 36px; display: flex; flex-direction: column; justify-content: center; }
   .hero-teks h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.25; margin: 0 0 24px; }
-  .hero-teks h1 span { color: var(--ungu); font-weight: 700; }
+  .hero-teks h1 span { color: var(--kuning); font-weight: 700; }
   .hero-teks p { margin: 0 0 4px; font-size: .95rem; }
   .hero-foto { border-radius: 24px; overflow: hidden; min-height: 320px; }
   .hero-foto img { width: 100%; height: 100%; object-fit: cover; }
   .aksi { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
-  .tombol { display: inline-block; padding: 10px 22px; border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--cokelat); background: #fff; font-weight: 600; }
+  .tombol { display: inline-block; padding: 10px 22px; border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--cokelat); background: #fff; font-weight: 600; border: none; cursor: pointer; text-align: center; }
   .tombol.kuning { background: var(--kuning); }
   .tombol:hover { filter: brightness(.95); }
 
   /* Belanja */
   .belanja { background: var(--cokelat); color: #fff; padding: 40px 0; }
   .belanja .bungkus { display: grid; grid-template-columns: 5fr 7fr; gap: 32px; align-items: center; }
-  .belanja img { border-radius: 8px; width: 100%; }
+  .belanja img { border-radius: 16px; width: 100%; }
   .belanja h2 { font-size: 1.8rem; font-weight: 300; margin: 0 0 12px; }
-  .belanja h2 span { color: var(--hijau); font-weight: 700; }
+  .belanja h2 span { color: var(--kuning); font-weight: 700; }
   .belanja p { margin: 0 0 18px; font-size: .95rem; font-weight: 600; }
   .toko { display: flex; gap: 10px; flex-wrap: wrap; }
 
   /* Pet sitter */
   .sitter { padding: 56px 0; }
-  .sitter h2 { text-align: center; font-size: 1.9rem; font-weight: 600; margin: 0 0 24px; }
+  .sitter h2 { text-align: center; font-size: 1.9rem; font-weight: 600; margin: 0 0 24px; color: var(--cokelat); }
   .sitter .isi { display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: start; }
-  .sitter .teks { text-align: center; font-size: .92rem; }
-  .sitter .teks p { margin: 0 0 10px; }
+  .sitter .teks { text-align: left; font-size: .95rem; }
+  .sitter .teks p { margin: 0 0 12px; }
   .sitter .foto { display: grid; gap: 14px; }
-  .sitter .foto img { width: 100%; }
+  .sitter .foto img { width: 100%; border-radius: 16px; }
+
+  /* Mood Anabul Interaktif */
+  .mood { background:#fff4ea; padding:56px 0; border-top:2px dashed #e4c9bb; border-bottom:2px dashed #e4c9bb; }
+  .mood h2 { text-align:center; font-size:2.1rem; font-weight:700; margin:0 0 6px; color:var(--cokelat); }
+  .mood .sub { text-align:center; margin:0 0 28px; font-size:1rem; color:#666; }
+  .mood .kotak { background:#fff; border-radius:20px; padding:28px; box-shadow:0 4px 15px rgba(0,0,0,.06); max-width:780px; margin:0 auto 20px; }
+  .mood h3 { margin:0 0 12px; font-size:1.1rem; color:var(--cokelat); display:flex; align-items:center; gap:8px; }
+  .mood .baris { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .mood input[type=text], .mood textarea { padding:11px 16px; border:2px solid #ecd8cc; border-radius:14px; font:inherit; width:100%; transition:border-color .2s; }
+  .mood input[type=text]:focus, .mood textarea:focus { border-color:var(--cokelat); outline:none; }
+  .mood button, .pil span { font:inherit; cursor:pointer; }
+  .mood .btn { border:0; background:var(--cokelat); color:#fff; padding:12px 24px; border-radius:999px; font-weight:700; transition:transform .1s, background .2s; }
+  .mood .btn:active { transform:scale(0.98); }
+  .mood .btn.alt { background:#fff; color:var(--cokelat); border:2px solid var(--cokelat); }
+  .mood fieldset { border:0; padding:0; margin:0 0 20px; }
+  .mood legend { font-weight:700; margin-bottom:8px; color:#444; font-size:.95rem; }
+  .pil { position:relative; margin:2px; }
+  .pil input { position:absolute; opacity:0; }
+  .pil span { display:inline-block; padding:9px 18px; border:2px solid #e4c9bb; border-radius:999px; font-size:.9rem; background:#fff; transition:all .2s; }
+  .pil input:checked + span { background:var(--cokelat); color:#fff; border-color:var(--cokelat); font-weight:600; box-shadow:0 2px 6px rgba(147,55,29,0.3); }
+  .pil input:focus-visible + span { outline:3px solid #1a73e8; outline-offset:2px; }
+  #cuaca { margin:12px 0 0; font-weight:600; min-height:1.4em; color:var(--cokelat); }
+  
+  /* Hasil Mood Interaktif */
+  .hasil { text-align:center; animation:fadeIn 0.4s ease-in-out; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .emoji-header { font-size:4rem; line-height:1.1; margin-bottom:10px; display:inline-block; animation:bounce 1s infinite alternate; }
+  @keyframes bounce { from { transform:translateY(0); } to { transform:translateY(-8px); } }
+  .meter-container { margin:14px 0; background:#f5f5f5; padding:12px 16px; border-radius:14px; text-align:left; }
+  .meter-label { font-size:.88rem; font-weight:700; display:flex; justify-content:space-between; margin-bottom:4px; }
+  .meter { height:14px; background:#e0e0e0; border-radius:99px; overflow:hidden; }
+  .meter i { display:block; height:100%; background:linear-gradient(90deg, #ff9800, #4caf50); border-radius:99px; transition:width 1s ease-out; }
+  .meter.energi i { background:linear-gradient(90deg, #2196f3, #9c27b0); }
+  .lencana { display:inline-block; background:var(--kuning); color:var(--cokelat); font-weight:700; padding:6px 16px; border-radius:999px; margin:6px 4px; font-size:.88rem; border:1px solid #ebd052; }
+  
+  /* Dialog Batin Kucing */
+  .batin-box { background:#fff8e7; border:2px dashed #f3c26b; border-radius:16px; padding:18px; margin:18px 0; text-align:left; position:relative; }
+  .batin-box::before { content:"💬 Batin Si Juragan:"; font-weight:700; color:var(--cokelat); display:block; margin-bottom:6px; font-size:.95rem; }
+  .batin-teks { font-style:italic; font-size:1.05rem; color:#444; line-height:1.5; }
+  
+  .hasil ul { text-align:left; margin:12px 0; padding-left:22px; font-size:.95rem; }
+  .hasil li { margin-bottom:6px; }
+  .catatan { font-size:.82rem; color:#666; }
+  .cokelat-note { background:#fde8e1; border-left:4px solid var(--cokelat); border-radius:8px; padding:12px 16px; font-size:.9rem; text-align:left; margin:16px 0; color:#82260f; }
+
+  .mood .chip { border:1px dashed var(--cokelat); background:#fff; color:var(--cokelat); padding:5px 14px; border-radius:999px; font-size:.82rem; cursor:pointer; font-weight:600; }
+  .mood .chip:hover { background:var(--cokelat); color:#fff; }
+  .ajak { background:linear-gradient(135deg, #fff8c9, #ffe6c9); border:2px solid #f0ba63; border-radius:16px; padding:20px; margin:20px 0; text-align:left; box-shadow:0 3px 10px rgba(0,0,0,.05); }
+  .ajak h4 { margin:0 0 8px; color:var(--cokelat); font-size:1.1rem; }
+  .cerita { background:#f7f9fc; border:1px solid #dce4ec; border-radius:14px; padding:14px 18px; margin:14px 0; text-align:left; }
 
   /* Kontak */
   .kontak { padding: 40px 0 64px; }
   .kontak .bungkus { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-  .kontak h2 { font-weight: 300; font-size: 2rem; margin: 0 0 20px; }
+  .kontak h2 { font-weight: 600; font-size: 2rem; margin: 0 0 20px; color: var(--cokelat); }
   .info { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .info h3 { margin: 4px 0; font-size: 1.05rem; font-weight: 400; }
   .info h3 b { color: var(--biru); font-weight: 700; }
-  .info p, .info li { font-size: .85rem; margin: 0; }
+  .info p, .info li { font-size: .9rem; margin: 0; }
   .info ul { margin: 6px 0 0; padding-left: 18px; }
-  .info a { color: var(--teks); }
-  .ikon { font-size: 1.3rem; }
-  .kontak img { width: 100%; max-height: 420px; object-fit: cover; }
+  .info a { color: var(--teks); font-weight: 600; }
+  .ikon { font-size: 1.5rem; }
+  .kontak img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 20px; }
 
   /* Footer */
   footer { background: var(--cokelat); color: #fff; padding: 26px 0; font-size: .9rem; }
   footer .bungkus { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
-  footer a { color: #fff; margin-left: 18px; }
+  footer a { color: #fff; margin-left: 18px; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
   footer a:first-child { margin-left: 0; }
 
-
-  /* Mood Anabul */
-  .mood { background:#fff4ea; padding:56px 0; }
-  .mood h2 { text-align:center; font-size:1.9rem; font-weight:600; margin:0 0 6px; }
-  .mood .sub { text-align:center; margin:0 0 24px; font-size:.95rem; }
-  .mood .kotak { background:#fff; border-radius:20px; padding:24px; box-shadow:0 2px 10px rgba(0,0,0,.08); max-width:760px; margin:0 auto 18px; }
-  .mood h3 { margin:0 0 10px; font-size:1.05rem; color:var(--cokelat); }
-  .mood .baris { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-  .mood input[type=text] { padding:9px 14px; border:1px solid #ccc; border-radius:999px; font:inherit; min-width:180px; }
-  .mood button, .pil span { font:inherit; cursor:pointer; }
-  .mood .btn { border:0; background:var(--cokelat); color:#fff; padding:10px 22px; border-radius:999px; font-weight:600; }
-  .mood .btn.alt { background:#fff; color:var(--cokelat); border:2px solid var(--cokelat); }
-  .mood fieldset { border:0; padding:0; margin:0 0 16px; }
-  .mood legend { font-weight:700; margin-bottom:6px; }
-  .pil { position:relative; }
-  .pil input { position:absolute; opacity:0; }
-  .pil span { display:inline-block; padding:8px 16px; border:2px solid #e4c9bb; border-radius:999px; font-size:.9rem; }
-  .pil input:checked + span { background:var(--cokelat); color:#fff; border-color:var(--cokelat); }
-  .pil input:focus-visible + span { outline:3px solid #1a73e8; outline-offset:2px; }
-  #cuaca { margin:10px 0 0; font-weight:600; min-height:1.4em; }
-  .hasil { text-align:center; }
-  .emoji { font-size:3.4rem; line-height:1; }
-  .meter { height:14px; background:#eee; border-radius:99px; overflow:hidden; margin:4px 0 12px; }
-  .meter i { display:block; height:100%; background:var(--hijau); border-radius:99px; transition:width .8s; }
-  .meter.e i { background:var(--biru); }
-  .lencana { display:inline-block; background:var(--kuning); color:var(--cokelat); font-weight:700; padding:6px 16px; border-radius:99px; margin:8px 0; }
-  .hasil ul { text-align:left; margin:8px auto; max-width:560px; padding-left:20px; }
-  .catatan { font-size:.8rem; color:#666; }
-  .cokelat-note { background:#fde8e1; border-radius:12px; padding:10px 14px; font-size:.9rem; text-align:left; }
-
-  .mood textarea { width:100%; padding:10px 14px; border:1px solid #ccc; border-radius:14px; font:inherit; margin-top:8px; }
-  .mood .chip { border:1px dashed var(--cokelat); background:#fff; color:var(--cokelat); padding:4px 12px; border-radius:99px; font-size:.82rem; }
-  .ajak { background:#fff8c9; border:2px dashed var(--cokelat); border-radius:14px; padding:14px; margin:14px 0; text-align:left; }
-  .ajak .tombol { margin-top:8px; border:1px solid var(--cokelat); }
-  .cerita { background:#fff4ea; border-radius:14px; padding:12px 16px; margin:12px auto; max-width:560px; text-align:left; }
-  /* HP */
+  /* HP Responsive */
   @media (max-width: 800px) {
     .hero, .belanja .bungkus, .sitter .isi, .kontak .bungkus { grid-template-columns: 1fr; }
     .hero-teks { padding: 36px 24px; }
     .sitter .foto { grid-template-columns: 1fr 1fr; }
     .info { grid-template-columns: 1fr; }
     header .bungkus { justify-content: center; }
+    .mood .kotak { padding:20px 16px; }
   }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .emoji-header { animation:none; } }
 </style>
 </head>
 <body>
@@ -140,6 +157,7 @@
         <li><a href="#shop">Shop</a></li>
         <li><a href="katalog.html">Katalog</a></li>
         <li><a href="#mood">Mood Anabul</a></li>
+        <li><a href="#petsitter">Pet Sitter</a></li>
         <li><a href="#kontak">Kontak</a></li>
         <li><a href="https://catsociety.duckdns.org/" target="_blank" rel="noopener">Internal Access</a></li>
         <li><a href="https://mail.zoho.com/zm/#mail/folder/inbox" target="_blank" rel="noopener">Login Email</a></li>
@@ -160,7 +178,7 @@
       <p>Psst… sebenarnya dia juragan yang sedang menyamar. 😼</p>
       <p>Happy Cats, Happy Humans. 🧡</p>
       <div class="aksi">
-        <a class="tombol kuning" href="#shop">Jelajahi Produk</a>
+        <a class="tombol kuning" href="#mood">Cek Mood Anabul 🐾</a>
         <a class="tombol" href="#shop">Belanja Sekarang</a>
       </div>
     </div>
@@ -175,7 +193,7 @@
       <img src="belanja.jpg" alt="Kucing dengan kalung oranye di samping mangkuk makan" width="500" height="340">
       <div>
         <h2>Belanja <span>Praktis</span> Online</h2>
-        <p>Temukan dry food, wet food, premium food, treats, tofu litter, dan aksesori kucing favorit di Shopee, Blibli, dan Toco. Pengalaman belanja yang terkurasi ....yang pasti-nya nga bikin kantong jebol dan juragan tetap bahagia (itu kan yang paling penting).</p>
+        <p>Temukan dry food, wet food, premium food, treats, tofu litter, dan aksesori kucing favorit di Shopee, Blibli, dan Toco. Pengalaman belanja yang terkurasi… yang pastinya tidak bikin kantong jebol dan juragan tetap bahagia (itu kan yang paling penting).</p>
         <div class="toko">
           <a class="tombol" href="https://s.shopee.co.id/7zx8YazCsb" target="_blank" rel="noopener">Shopee</a>
           <a class="tombol" href="https://blibli.onelink.me/GNtk/5qwj2i03" target="_blank" rel="noopener">Blibli</a>
@@ -188,66 +206,74 @@
   <!-- PET SITTER -->
   <section id="petsitter" class="sitter">
     <div class="bungkus">
-      <h2>Pet Sitter</h2>
+      <h2>Pet Sitter CatSociety 🐾</h2>
       <div class="isi">
         <div class="teks">
-          <p><b><i>Layanan Memanjakan Anabul</i></b></p>
-          <p>Kamu boleh pergi, tapi perhatian buat si meong jangan sampai berhenti. 🐾<br>
-          Ada kalanya kamu harus bekerja, bepergian, atau punya kesibukan lain. Tapi, pikiran tetap tertinggal di rumah…</p>
-          <p>“Si meong sudah makan belum, ya?”<br>“Siapa yang nemenin main?”<br>“Litter box-nya sudah dibersihkan?”</p>
+          <p><b><i>Layanan Memanjakan Anabul Saat Kamu Sibuk</i></b></p>
+          <p>Kamu boleh pergi atau sibuk kerja, tapi perhatian buat si meong jangan sampai berhenti. 🐾<br>
+          Ada kalanya kamu harus bekerja berjam-jam, bepergian, atau punya kesibukan lain. Tapi, pikiran tetap tertinggal di rumah…</p>
+          <p>“Si meong sudah makan belum, ya?”<br>“Siapa yang nemenin main pas zoomies?”<br>“Litter box-nya sudah dibersihkan?”</p>
           <p><b>Tenang, CatSociety siap membantu!</b></p>
-          <p>Melalui layanan Pet Sitter, kami ingin memastikan anabul tetap mendapatkan perhatian dan perawatan saat kamu tidak bisa selalu berada di dekatnya. Karena buat kami, mereka bukan sekadar hewan peliharaan. Mereka anggota keluarga sekaligus juragan kecil yang punya rutinitas dan kebiasaan sendiri. 👑</p>
-          <p>Jadi, kamu bisa menjalani aktivitas dengan lebih tenang, dan si meong tetap merasa diperhatikan.</p>
+          <p>Melalui layanan Pet Sitter, kami memastikan anabul tetap mendapatkan perhatian, makanan, dan stimulasi bermain saat kamu tidak berada di rumah. Karena mereka bukan sekadar hewan peliharaan, mereka adalah juragan kecil yang punya rutinitas istimewa. 👑</p>
           <p><i>You take care of your day. We’ll help take care of your little boss.</i></p>
+          <p style="margin-top:16px"><a class="tombol kuning" style="border:1px solid var(--cokelat)" href="https://wa.me/62896549780033?text=Halo%20CatSociety,%20saya%20mau%20tanya%20layanan%20Pet%20Sitter" target="_blank" rel="noopener">Chat Pet Sitter via WhatsApp 💬</a></p>
         </div>
         <div class="foto">
-          <img src="petsitter1.jpg" alt="Tiga kucing melihat keluar dari balik jendela" width="260" height="190">
-          <img src="petsitter2.jpg" alt="Perempuan tersenyum memeluk kucing" width="260" height="260">
+          <img src="petsitter1.jpg" alt="Dua kucing putih melihat keluar jendela" width="260" height="190">
+          <img src="petsitter2.jpg" alt="Owner menggendong kucing kesayangan" width="260" height="260">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MOOD ANABUL -->
+  <!-- MOOD ANABUL INTERAKTIF -->
   <section id="mood" class="mood">
     <div class="bungkus">
-      <h2>🐾 Mood of Your Anabul</h2>
-      <p class="sub">Jawab beberapa pertanyaan, lalu lihat mood si juragan, saran makanan, dan cara seru berinteraksi hari ini.</p>
+      <h2>🐾 Cat & Human Mood Matcher</h2>
+      <p class="sub">Jawab beberapa pertanyaan singkat, masukkan nama & cerita si juragan, dan temukan dinamika hubungan kalian hari ini!</p>
+      
       <div class="kotak">
-        <h3>1. Cuaca di tempatmu</h3>
+        <h3>1. 🌤️ Deteksi Cuaca Tempat Tinggal</h3>
         <div class="baris">
-          <button class="btn" type="button" id="btnLok">📍 Pakai lokasi saya</button>
-          <input type="text" id="kota" placeholder="atau ketik nama kota" aria-label="Nama kota">
+          <button class="btn" type="button" id="btnLok">📍 Deteksi Lokasi Otomatis</button>
+          <input type="text" id="kota" placeholder="atau ketik nama kota (contoh: Bintaro)" aria-label="Nama kota" style="flex:1; min-width:180px;">
           <button class="btn alt" type="button" id="btnKota">Cari</button>
         </div>
-        <div class="baris" style="margin-top:10px">
-          <span>Atau pilih manual:</span>
+        <div class="baris" style="margin-top:12px">
+          <span style="font-size:.9rem; font-weight:600;">Atau pilih cuaca manual:</span>
           <button class="btn alt" type="button" data-cuaca="panas">☀️ Panas</button>
           <button class="btn alt" type="button" data-cuaca="hangat">⛅ Hangat</button>
           <button class="btn alt" type="button" data-cuaca="sejuk">🌥️ Sejuk</button>
           <button class="btn alt" type="button" data-cuaca="hujan">🌧️ Hujan</button>
         </div>
         <p id="cuaca" aria-live="polite"></p>
-        <p class="catatan">Lokasi hanya dipakai di browsermu untuk mengambil cuaca dan tidak disimpan oleh kami.</p>
+        <p class="catatan">Privasi terjamin: Lokasi hanya diproses secara lokal di browser kamu.</p>
       </div>
+
       <div class="kotak">
-        <h3>2. Ceritakan tentang kalian</h3>
+        <h3>2. 📝 Profil & Kondisi Hari Ini</h3>
         <div id="form"></div>
         <fieldset>
-          <legend>📖 Ceritakan anabulmu (opsional)</legend>
-          <input type="text" id="nama" maxlength="30" placeholder="Nama anabul" aria-label="Nama anabul">
-          <textarea id="cerita" maxlength="400" rows="3" placeholder="Contoh: Mochi suka tidur di atas laptop tiap aku kerja… 😹" aria-label="Cerita tentang anabul"></textarea>
-          <div class="baris" style="margin-top:8px">
-            <span class="catatan">Butuh ide?</span>
-            <button type="button" class="chip" data-ide="Kebiasaan paling lucunya:">Kebiasaan lucu</button>
-            <button type="button" class="chip" data-ide="Momen yang bikin aku jatuh cinta padanya:">Momen jatuh cinta</button>
-            <button type="button" class="chip" data-ide="Makanan favoritnya:">Makanan favorit</button>
-            <button type="button" class="chip" data-ide="Tingkah juragannya yang bikin gemas:">Tingkah juragan</button>
+          <legend>👑 Identitas & Cerita Anabul</legend>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+            <input type="text" id="nama" maxlength="30" placeholder="Nama anabul (misal: Mengg, Mochi, Oyen)" aria-label="Nama anabul">
+            <input type="text" id="namaOwner" maxlength="30" placeholder="Nama kamu / panggilan Pawrent" aria-label="Nama owner">
+          </div>
+          <textarea id="cerita" maxlength="400" rows="3" placeholder="Ceritakan tingkahnya hari ini... (Contoh: Tadi pagi gangguin pas zoom meeting, terus tidur di atas keyboard 😹)" aria-label="Cerita tentang anabul"></textarea>
+          <div class="baris" style="margin-top:10px">
+            <span class="catatan">Inspirasi cerita:</span>
+            <button type="button" class="chip" data-ide="Kebiasaan paling anehnya:">Kebiasaan aneh</button>
+            <button type="button" class="chip" data-ide="Cara dia minta makan:">Minta makan</button>
+            <button type="button" class="chip" data-ide="Tempat tidur favorit hari ini:">Tempat tidur</button>
+            <button type="button" class="chip" data-ide="Tingkahnya pas aku lagi kerja:">Saat aku kerja</button>
           </div>
         </fieldset>
-        <button class="btn" type="button" id="btnHasil">Lihat Mood Anabul 😺</button>
-        <p id="galat" class="catatan" role="alert"></p>
+        
+        <button class="btn" type="button" id="btnHasil" style="width:100%; font-size:1.1rem; padding:14px;">Analisis Mood & Sinergi Kalian 😸</button>
+        <p id="galat" class="catatan" style="color:#c62828; font-weight:700; text-align:center; margin-top:10px;" role="alert"></p>
       </div>
+
+      <!-- HASIL REKOMENDASI -->
       <div class="kotak hasil" id="hasil" aria-live="polite" hidden></div>
     </div>
   </section>
@@ -282,7 +308,7 @@
             <div class="ikon" aria-hidden="true">🚚</div>
             <h3><b>Pengiriman</b> Area</h3>
             <ul>
-              <li>gratis radius &lt; 5 km *</li>
+              <li>Gratis radius &lt; 5 km *</li>
               <li>Seluruh Indonesia via marketplace</li>
             </ul>
           </div>
@@ -305,89 +331,167 @@
   </div>
 </footer>
 
-
 <script>
 (function(){
   var TOKO={Shopee:"https://s.shopee.co.id/7zx8YazCsb",Blibli:"https://blibli.onelink.me/GNtk/5qwj2i03",Toco:"https://toco.id/link/3gtC7879R7nbFtY5GxPBy1"};
   var Q=[
-   {k:"usia",t:"Usia anabul",o:[["Anak kucing 🐱","kitten",0,0],["Dewasa 😺","dewasa",0,0],["Senior 😽","senior",0,-1]]},
-   {k:"makan",t:"Nafsu makannya hari ini?",o:[["Lahap 🍗","lahap",2,1],["Biasa saja","biasa",1,0],["Malas makan","malas",-2,-1]]},
-   {k:"aktif",t:"Aktivitasnya?",o:[["Zoomies! 🤪","zoom",1,3],["Santai","santai",1,1],["Tidur terus 😴","tidur",0,-2]]},
-   {k:"sikap",t:"Sikapnya ke kamu?",o:[["Manja minta elus 🥰","manja",2,0],["Cuek","cuek",0,0],["Ngumpet","ngumpet",-2,-1]]},
-   {k:"aku",t:"Mood kamu hari ini?",o:[["Semangat 💪","semangat",0,0],["Biasa saja","biasa",0,0],["Capek 🥱","capek",0,0]]},
-   {k:"waktu",t:"Waktu luang untuk si pus?",o:[["Banyak (15+ menit)","banyak",0,0],["Sebentar (5-10 menit)","sebentar",0,0],["Nyaris tidak ada","mepet",0,0]]}
+   {k:"usia",t:"1. Usia anabul kamu?",o:[["Anak Kucing (Kitten) 🐱","kitten",0,0],["Dewasa (Adult) 😺","dewasa",0,0],["Senior (7+ tahun) 😽","senior",0,-1]]},
+   {k:"makan",t:"2. Nafsu makannya hari ini?",o:[["Sangat Lahap 🍗","lahap",2,1],["Biasa Saja 🍽️","biasa",1,0],["Agak Malas Makan 😿","malas",-2,-1]]},
+   {k:"aktif",t:"3. Tingkat energinya?",o:[["Mode Zoomies / Reog 🤪","zoom",1,3],["Santai Anggun 😸","santai",1,1],["Tidur & Mager Terus 😴","tidur",0,-2]]},
+   {k:"sikap",t:"4. Sikapnya terhadapmu saat ini?",o:[["Manja & Nempel Terus 🥰","manja",2,0],["Cuek / Sultan Judes 👑","cuek",0,0],["Suka Ngumpet / Waspada 🕵️","ngumpet",-2,-1]]},
+   {k:"aku",t:"5. Mood / Energi kamu (Pawrent) hari ini?",o:[["Semangat & Berenergi 💪","semangat",0,0],["Cukup Santai ☕","biasa",0,0],["Lelah / Fitur Burnout 🥱","capek",0,0]]},
+   {k:"waktu",t:"6. Waktu luang kamu untuk si meong?",o:[["Banyak (15+ Menit) ⏳","banyak",0,0],["Sebentar (5-10 Menit) ⏱️","sebentar",0,0],["Mepet / Super Sibuk 🚨","mepet",0,0]]}
   ];
-  function esc(x){return x.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  document.querySelectorAll("[data-ide]").forEach(function(b){b.onclick=function(){var t=$("cerita");t.value+=(t.value?" ":"")+b.dataset.ide+" ";t.focus()}});
-  var A={},W=null,$=function(i){return document.getElementById(i)};
-  $("form").innerHTML=Q.map(function(q){return '<fieldset><legend>'+q.t+'</legend><div class="baris">'+q.o.map(function(o,i){return '<label class="pil"><input type="radio" name="'+q.k+'" value="'+i+'"><span>'+o[0]+'</span></label>'}).join("")+'</div></fieldset>'}).join("");
+
+  function esc(x){return x?x.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]}):""}
+  
+  // Synthesizer suara "Ngeong" realistis via Web Audio API
+  function bunyikanMeow(){
+    try {
+      var AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      var ctx = new AudioCtx();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      var now = ctx.currentTime;
+      osc.frequency.setValueAtTime(500, now);
+      osc.frequency.exponentialRampToValueAtTime(850, now + 0.15);
+      osc.frequency.exponentialRampToValueAtTime(400, now + 0.45);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.3, now + 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } catch(e){}
+  }
+
+  document.querySelectorAll("[data-ide]").forEach(function(b){
+    b.onclick=function(){
+      var t=$("cerita");
+      t.value+=(t.value?" ":"")+b.dataset.ide+" ";
+      t.focus();
+    }
+  });
+
+  var W=null, $=function(i){return document.getElementById(i)};
+  
+  $("form").innerHTML=Q.map(function(q){
+    return '<fieldset><legend>'+q.t+'</legend><div class="baris">'+q.o.map(function(o,i){
+      return '<label class="pil"><input type="radio" name="'+q.k+'" value="'+i+'"><span>'+o[0]+'</span></label>';
+    }).join("")+'</div></fieldset>';
+  }).join("");
 
   function setCuaca(kat,label){W=kat;$("cuaca").textContent="✅ "+label}
   function dariData(t,code,nama){
     var kat=(code>=51&&code<=67)||code>=80?"hujan":t>=32?"panas":t<=24?"sejuk":"hangat";
-    setCuaca(kat,nama+": "+Math.round(t)+"°C, kategori "+kat);
+    setCuaca(kat,nama+": "+Math.round(t)+"°C ("+kat.toUpperCase()+")");
   }
   function ambil(lat,lon,nama){
-    $("cuaca").textContent="Mengambil cuaca…";
+    $("cuaca").textContent="⏳ Mengambil data cuaca terkini...";
     fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code")
      .then(function(r){return r.json()}).then(function(d){dariData(d.current.temperature_2m,d.current.weather_code,nama)})
-     .catch(function(){$("cuaca").textContent="Cuaca otomatis gagal diambil. Pilih cuaca secara manual ya."});
+     .catch(function(){$("cuaca").textContent="⚠️ Gagal mengambil cuaca otomatis. Silakan pilih tombol manual di bawah."});
   }
+  
   $("btnLok").onclick=function(){
-    if(!navigator.geolocation){$("cuaca").textContent="Browser tidak mendukung lokasi. Pilih manual ya.";return}
-    navigator.geolocation.getCurrentPosition(function(p){ambil(p.coords.latitude,p.coords.longitude,"Lokasimu")},function(){$("cuaca").textContent="Izin lokasi ditolak. Ketik nama kota atau pilih manual."});
+    if(!navigator.geolocation){$("cuaca").textContent="Browser tidak mendukung lokasi. Silakan pilih manual.";return}
+    navigator.geolocation.getCurrentPosition(function(p){ambil(p.coords.latitude,p.coords.longitude,"Lokasimu")},function(){$("cuaca").textContent="Izin lokasi tidak diberikan. Ketik nama kota atau pilih tombol manual."});
   };
+  
   $("btnKota").onclick=function(){
     var n=$("kota").value.trim();if(!n)return;
     fetch("https://geocoding-api.open-meteo.com/v1/search?count=1&language=id&name="+encodeURIComponent(n))
      .then(function(r){return r.json()}).then(function(d){
        if(!d.results||!d.results.length){$("cuaca").textContent="Kota tidak ditemukan. Coba nama lain atau pilih manual.";return}
-       ambil(d.results[0].latitude,d.results[0].longitude,d.results[0].name)})
-     .catch(function(){$("cuaca").textContent="Gagal mencari kota. Pilih cuaca manual ya."});
+       ambil(d.results[0].latitude,d.results[0].longitude,d.results[0].name);
+     })
+     .catch(function(){$("cuaca").textContent="Gagal mencari kota. Silakan pilih cuaca manual."});
   };
-  document.querySelectorAll("[data-cuaca]").forEach(function(b){b.onclick=function(){setCuaca(b.dataset.cuaca,"Cuaca dipilih manual: "+b.dataset.cuaca)}});
+  
+  document.querySelectorAll("[data-cuaca]").forEach(function(b){
+    b.onclick=function(){setCuaca(b.dataset.cuaca,"Cuaca manual: "+b.dataset.cuaca.toUpperCase())};
+  });
 
-  function tombol(){return Object.keys(TOKO).map(function(n){return '<a class="tombol" href="'+TOKO[n]+'" target="_blank" rel="noopener">Cari di '+n+'</a>'}).join(" ")}
-  function bar(v,c){return '<div class="meter '+c+'" role="img" aria-label="'+v+' persen"><i style="width:'+v+'%"></i></div>'}
+  function tombol(){
+    return Object.keys(TOKO).map(function(n){
+      return '<a class="tombol" href="'+TOKO[n]+'" target="_blank" rel="noopener">Cek '+n+'</a>';
+    }).join(" ");
+  }
+
+  // Generator Narasi Batin Kucing berdasarkan variabel
+  function buatBatinKucing(nm, owner, moodKat, sikap, aku){
+    var o = owner || "binti pelayan favoritku";
+    var n = nm || "aku";
+    
+    if(moodKat === "Mode Zoomies"){
+      return "“Dengarlah wahai "+o+"! Lantai rumah ini adalah sirkuit Formula 1 jam 3 pagi! Persiapkan dirimu untuk melihat atraksi parkour dari atas lemari ke kepalamu!” 🏎️💨";
+    }
+    if(sikap === "ngumpet"){
+      return "“Hei "+o+", aku sedang melakukan investigasi rahasia di bawah kolong tempat tidur. Jangan ganggu dulu kecuali kamu membawa wet food beraroma tuna lezat!” 🕵️🐾";
+    }
+    if(sikap === "manja" && aku === "capek"){
+      return "“Aku tahu kamu capek setelah berjuang seharian, "+o+". Sini, biar "+n+" senderan di dadamu. Kita cas energi bareng-bareng sambil dengar dengkuran (purring) ajaibku.” 💖";
+    }
+    if(moodKat === "Mager Elegan"){
+      return "“Dunia boleh berputar cepat, tapi "+n+" memilih untuk jadi gaya gravitasi di atas sofa ini. Jangan ajak bicara sebelum mangkuk makanan terisi.” 😴👑";
+    }
+    return "“Hari ini cukup menyenangkan, "+o+". Selama persediaan kibble aman dan elusan di daguku pas, posisi bertahtaku di rumah ini tetap terjamin.” 😻✨";
+  }
 
   $("btnHasil").onclick=function(){
     var h=0,e=0,pilih={};
     for(var i=0;i<Q.length;i++){
       var c=document.querySelector('input[name="'+Q[i].k+'"]:checked');
-      if(!c){$("galat").textContent="Jawab semua pertanyaan dulu ya (belum: "+Q[i].t+").";return}
+      if(!c){$("galat").textContent="⚠️ Mohon jawab pertanyaan nomor "+(i+1)+" dulu ya!";return}
       var o=Q[i].o[+c.value];pilih[Q[i].k]=o[1];h+=o[2];e+=o[3];
     }
-    if(!W){$("galat").textContent="Pilih cuaca dulu di langkah 1 ya.";return}
+    if(!W){$("galat").textContent="⚠️ Pilih atau cari kondisi cuaca di Langkah 1 terlebih dahulu!";return}
     $("galat").textContent="";
+    
+    // Bunyikan efek meow!
+    bunyikanMeow();
+
     if(W==="panas")e-=1;if(W==="hujan")e-=1;if(W==="sejuk")e+=1;
-    var hp=Math.max(10,Math.min(100,Math.round(55+h*9))),ep=Math.max(10,Math.min(100,50+e*10));
+    var hp=Math.max(15,Math.min(100,Math.round(55+h*9))),ep=Math.max(15,Math.min(100,50+e*10));
+    
     var m;
-    if(h<=-2)m=["🙀","Lagi Butuh Perhatian"];
-    else if(e>=3)m=["🤪","Mode Zoomies"];
-    else if(h>=4)m=["😻","Juragan Happy"];
+    if(h<=-2)m=["🙀","Lagi Butuh Perhatian Extra"];
+    else if(e>=3)m=["🤪","Mode Zoomies / Reog"];
+    else if(h>=4)m=["😻","Juragan Super Happy"];
     else if(e<=0)m=["😴","Mager Elegan"];
-    else m=["😸","Santai Bahagia"];
+    else m=["😸","Santai & Bahagia"];
+
+    // Kalkulasi Skor Sinergi Hubungan
+    var sinergi = 85;
+    if(pilih.aku === "capek" && pilih.aktif === "zoom") sinergi = 60; // Tabrakan energi
+    if(pilih.aku === "semangat" && pilih.sikap === "manja") sinergi = 98; // Perfect match
+    if(pilih.aku === "capek" && pilih.sikap === "manja") sinergi = 92; // Bonding penyembuhan
 
     var f;
-    if(pilih.usia==="kitten")f=["Kitten food + wet food khusus anak kucing","Anak kucing butuh nutrisi padat untuk tumbuh."];
-    else if(pilih.usia==="senior")f=["Senior food / wet food bertekstur lembut","Lebih mudah dikunyah dan ramah untuk kucing senior."];
-    else if(pilih.makan==="malas")f=["Wet food premium beraroma kuat atau topper","Aroma kuat sering memancing nafsu makan."];
-    else if(W==="panas")f=["Wet food + air minum segar","Membantu asupan cairan saat cuaca panas."];
-    else if(W==="hujan"||W==="sejuk")f=["Wet food suam-suam kuku + dry food premium","Makanan hangat terasa lebih menggoda saat cuaca dingin."];
-    else f=["Dry food premium + treats","Pilihan harian praktis untuk kucing yang sehat."];
+    if(pilih.usia==="kitten")f=["Kitten Food + Wet Food khusus anak kucing","Anak kucing butuh nutrisi padat untuk tumbuh kembang optimal."];
+    else if(pilih.usia==="senior")f=["Senior Food / Wet Food tekstur lembut","Mudah dikunyah dan sangat ramah untuk pencernaan kucing senior."];
+    else if(pilih.makan==="malas")f=["Wet Food beraroma kuat / Creamy Treats Topper","Aroma tuna/salmon yang kuat ampuh memancing selera makan si juragan."];
+    else if(W==="panas")f=["Wet Food + Air Minum Segar","Sangat penting membantu asupan hidrasi ekstra saat cuaca panas."];
+    else if(W==="hujan"||W==="sejuk")f=["Wet Food suam-suam kuku + Dry Food Premium","Makanan hangat sangat menggoda dan menenangkan saat cuaca dingin."];
+    else f=["Dry Food Premium + Snack Treats","Kombinasi nutrisi lengkap dan lezat untuk harian si manis."];
 
     var t=[];
-    if(m[1]==="Mode Zoomies")t.push("🎣 Sesi berburu: mainan tongkat atau bulu 10–15 menit, akhiri dengan treat supaya si pus merasa menang.");
-    if(m[1]==="Mager Elegan")t.push("🛋️ Elus pelan dan temani istirahat bareng. Tidak perlu memaksa main.");
-    if(m[1]==="Lagi Butuh Perhatian")t.push("🤫 Beri ruang, duduk dekat tanpa memaksa, lalu tawarkan treat dari tanganmu.");
-    if(m[1]==="Juragan Happy"||m[1]==="Santai Bahagia")t.push("🍬 Hadiahi treat kecil dan ajak main ringan.");
-    if(pilih.sikap==="manja")t.push("🤗 Dia sedang manja: gendong sebentar kalau dia suka, atau elus di pipi dan dagu.");
-    if(pilih.waktu==="mepet")t.push("⏱️ Waktu mepet? Tiga sesi main 2 menit jauh lebih baik daripada tidak sama sekali.");
-    if(pilih.aku==="capek")t.push("🥱 Kamu sedang capek: duduk berdampingan saja sudah cukup. Kucing sering nyaman hanya ditemani.");
-    if(W==="panas")t.push("☀️ Cuaca panas: ajak main di jam yang lebih sejuk dan siapkan air minum segar.");
-    if(W==="hujan")t.push("🌧️ Hujan: main di dalam rumah, misalnya petak umpet di kardus.");
-    var alarm=(pilih.makan==="malas"&&(pilih.sikap==="ngumpet"||pilih.aktif==="tidur"))?'<p class="cokelat-note">⚠️ Jika si pus tidak mau makan lebih dari 24 jam atau tampak lemas, segera hubungi dokter hewan. Hasil ini hanya hiburan, bukan diagnosis.</p>':"";
+    if(m[1]==="Mode Zoomies / Reog")t.push("🎣 <b>Sesi Berburu:</b> Mainkan tongkat bulu atau laser selama 10–15 menit, lalu beri treat agar si juragan merasa sukses menangkap mangsa.");
+    if(m[1]==="Mager Elegan")t.push("🛋️ <b>Chilling Out:</b> Usap lembut area dagu atau belakang telinga. Tidak perlu dipaksa beraktivitas berat.");
+    if(m[1]==="Lagi Butuh Perhatian Extra")t.push("🤫 <b>Pahami Ruang:</b> Duduk santai di dekatnya tanpa menatap matanya secara tajam. Biarkan dia mendekat sendiri.");
+    if(m[1]==="Juragan Super Happy"||m[1]==="Santai & Bahagia")t.push("🍬 <b>Reward Time:</b> Berikan camilan creamy treats favoritnya sambil diajak bicara dengan nada lembut.");
+    if(pilih.sikap==="manja")t.push("🤗 <b>Pusat Afeksi:</b> Siapkan pangkuan hangatmu, dengarkan purring-nya yang bisa melepaskan hormon stresmu.");
+    if(pilih.waktu==="mepet")t.push("⏱️ <b>Micro-Play:</b> Waktu terbatas? 3 kali sesi main singkat selama 2 menit tetap sangat berarti baginya!");
+    if(pilih.aku==="capek")t.push("🥱 <b>Self-Care Together:</b> Kamu lagi lelah. Rebahan bersama kucing terbukti menurunkan tekanan darah dan rasa cemas.");
+    if(W==="panas")t.push("☀️ <b>Tips Cuaca:</b> Ajak bermain di area yang sejuk dan pastikan bak air minumnya selalu bersih.");
+    if(W==="hujan")t.push("🌧️ <b>Indoor Bonding:</b> Buatkan tempat bersembunyi dari kardus bekas atau selimut hangat.");
 
+    var alarm=(pilih.makan==="malas"&&(pilih.sikap==="ngumpet"||pilih.aktif==="tidur"))?'<div class="cokelat-note">⚠️ <b>Catatan Kesehatan Psikologis & Fisik:</b> Jika si manis tidak mau makan lebih dari 24 jam atau tampak sangat lemas, segera berkonsultasi dengan dokter hewan. Tes ini bertujuan sebagai sarana pemahaman emosional, bukan diagnosis medis.</div>':"";
+
+    // Streak System (Local Storage)
     var n=1;
     try{
       var d=new Date(),hari=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(),k=JSON.parse(localStorage.getItem("cs_streak")||"null");
@@ -395,26 +499,84 @@
         n=k.d===hari?k.n:(k.d===kemarin?k.n+1:1)}
       localStorage.setItem("cs_streak",JSON.stringify({d:hari,n:n}));
     }catch(x){}
-    var lv=n>=7?"👑 Juragan Sejati":n>=3?"🏅 Pawrent Setia":"🐾 Cat Parent Baru";
+    var lv=n>=7?"👑 Pawrent Teladan Sejati":n>=3?"🏅 Pawrent Setia & Penuh Kasih":"🐾 Pawrent Baru yang Penyayang";
 
-    var KEY={"Mode Zoomies":"zoom","Mager Elegan":"mager","Lagi Butuh Perhatian":"bete","Juragan Happy":"happy","Santai Bahagia":"santai"};
-    var nama=esc($("nama").value.trim().slice(0,30)),cerita=esc($("cerita").value.trim().slice(0,400)),nm=nama||"si pus";
+    var KEY={"Mode Zoomies / Reog":"zoom","Mager Elegan":"mager","Lagi Butuh Perhatian Extra":"bete","Juragan Super Happy":"happy","Santai & Bahagia":"santai"};
+    var namaCat=esc($("nama").value.trim().slice(0,30)), namaOwn=esc($("namaOwner").value.trim().slice(0,30));
+    var ceritaUser=esc($("cerita").value.trim().slice(0,400));
+    var nm=namaCat||"Si Meong";
+    var own=namaOwn||"Pawrent";
+
     var qs=["usia","makan","aktif","sikap","aku","waktu"].map(function(k){return k+"="+pilih[k]}).join("&")+"&cuaca="+W+"&m="+KEY[m[1]];
-    var wa="https://wa.me/62896549780033?text="+encodeURIComponent("Halo CatSociety! Saya mau cerita tentang "+($("nama").value.trim()||"anabul saya")+". "+$("cerita").value.trim().slice(0,300));
-    var ajak=(pilih.aku==="capek"||pilih.waktu==="mepet")?'<div class="ajak"><b>💛 Yuk... coba ngobrol dengan kami...</b><br>Mungkin kami bisa bantu dengan layanan pet-sitter, supaya '+nm+' tetap diperhatikan saat kamu sibuk atau capek.<br><a class="tombol kuning" href="'+wa+'" target="_blank" rel="noopener">Ngobrol via WhatsApp</a> <a class="tombol" href="#petsitter">Lihat layanan Pet Sitter</a></div>':"";
-    var kartu=cerita?'<div class="cerita"><b>📖 Cerita '+nm+'</b><br>“'+cerita+'”<br><small>Makasih sudah cerita! Kami suka dengar kisah anabul. <a href="'+wa+'" target="_blank" rel="noopener">Kirim ceritamu ke kami</a></small></div>':"";
-    var pend=cerita.length>=20?'<div class="lencana">📖 Pendongeng Anabul</div> ':"";
+    
+    // WA Link & Pet Sitter Trigger
+    var textWA = "Halo CatSociety! Saya "+own+" mau cerita tentang "+nm+" (Mood: "+m[1]+"). "+(ceritaUser?"Cerita: "+ceritaUser:"");
+    var wa="https://wa.me/62896549780033?text="+encodeURIComponent(textWA);
+    
+    var ajak = (pilih.aku==="capek"||pilih.waktu==="mepet") ? 
+      '<div class="ajak"><h4>💛 Butuh Bantuan Menjaga '+nm+' Hari Ini?</h4>'+
+      '<p style="margin:0 0 12px; font-size:.92rem;">Kami mengerti kamu sedang lelah atau punya jadwal yang padat. Jangan biarkan '+nm+' kesepian! Tim <b>Pet Sitter CatSociety</b> siap datang merawat, memberi makan, dan menemani '+nm+' bermain di rumahmu.</p>'+
+      '<a class="tombol kuning" style="border:1px solid var(--cokelat)" href="'+wa+'" target="_blank" rel="noopener">Chat WhatsApp Pet Sitter 💬</a> '+
+      '<a class="tombol" href="#petsitter">Pelajari Layanan Pet Sitter</a></div>' : '';
+
+    var kartuCerita = ceritaUser ? 
+      '<div class="cerita"><b>📖 Jurnal Cerita '+nm+' & '+own+'</b><br>“'+ceritaUser+'”<br><small style="color:#666;">Terima kasih sudah berbagi momen hangat! <a href="'+wa+'" target="_blank" rel="noopener">Bagikan cerita ini ke WhatsApp CatSociety 💬</a></small></div>' : '';
+
+    var batinTeks = buatBatinKucing(nm, own, m[1], pilih.sikap, pilih.aku);
+
     var r=$("hasil");
-    r.innerHTML='<div class="emoji">'+m[0]+'</div><h3 style="font-size:1.5rem">'+(nama?nama+": ":"")+m[1]+'</h3>'+
-     '<p>Happy meter</p>'+bar(hp,"h")+'<p>Energi</p>'+bar(ep,"e")+
-     '<div class="lencana">'+lv+' · check-in hari ke-'+n+'</div> '+pend+kartu+
-     '<h3>🍽️ Saran makanan</h3><p><b>'+f[0]+'</b><br>'+f[1]+'</p><p>'+tombol()+'</p>'+
-     '<h3>🎾 Saran interaksi</h3><ul>'+t.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>'+
-     '<p>Mau treat atau mainan? '+tombol()+'</p>'+ajak+'<p><a class="tombol kuning" style="border:1px solid var(--cokelat)" href="katalog.html?'+qs+'">🛍️ Lihat produk pilihan untuk mood hari ini</a></p>'+alarm+
-     '<p><button class="btn alt" type="button" id="ulang">Main lagi</button></p>'+
-     '<p class="catatan">Happy Cats, Happy Humans. 🧡 Cek-in setiap hari untuk naik level.</p>';
-    r.hidden=false;r.scrollIntoView({behavior:"smooth",block:"center"});
-    $("ulang").onclick=function(){document.querySelectorAll("#form input").forEach(function(i){i.checked=false});r.hidden=true;$("mood").scrollIntoView({behavior:"smooth"})};
+    r.innerHTML=
+     '<div class="emoji-header">'+m[0]+'</div>'+
+     '<h3 style="font-size:1.6rem; justify-content:center; margin-bottom:4px;">'+(namaCat?namaCat+": ":"")+m[1]+'</h3>'+
+     '<p style="margin:0 0 12px; color:#555; font-size:.95rem;">Analisis Pasangan: <b>'+nm+'</b> & <b>'+own+'</b></p>'+
+     
+     '<div class="batin-box"><div class="batin-teks">'+batinTeks+'</div></div>'+
+
+     '<div class="meter-container">'+
+       '<div class="meter-label"><span>Skor Sinergi Hubungan Kalian</span><span>'+sinergi+'%</span></div>'+
+       '<div class="meter"><i style="width:'+sinergi+'%"></i></div>'+
+       '<div class="meter-label" style="margin-top:10px;"><span>Tingkat Vitalitas Anabul</span><span>'+ep+'%</span></div>'+
+       '<div class="meter energi"><i style="width:'+ep+'%"></i></div>'+
+     '</div>'+
+
+     '<div style="margin:14px 0">'+
+       '<div class="lencana">'+lv+'</div>'+
+       '<div class="lencana">Check-in Hari ke-'+n+' 🔥</div>'+
+       (ceritaUser?'<div class="lencana">📖 Cerita Terrekam</div>':"")+
+     '</div>'+
+
+     kartuCerita+
+
+     '<div style="text-align:left; background:#fff; border-radius:16px; padding:18px; border:1fr solid #eee; margin:16px 0;">'+
+       '<h3 style="margin-top:0">🍽️ Rekomendasi Menu & Nutrisi</h3>'+
+       '<p style="margin:0 0 10px"><b>'+f[0]+'</b><br><span style="font-size:.9rem; color:#555">'+f[1]+'</span></p>'+
+       '<p style="margin:0">'+tombol()+'</p>'+
+     '</div>'+
+
+     '<div style="text-align:left; background:#fff; border-radius:16px; padding:18px; border:1fr solid #eee; margin:16px 0;">'+
+       '<h3 style="margin-top:0">🎾 Saran Aktivitas & Interaksi</h3>'+
+       '<ul>'+t.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>'+
+     '</div>'+
+
+     ajak+
+
+     '<div style="margin-top:20px;">'+
+       '<a class="tombol kuning" style="border:2px solid var(--cokelat); font-size:1rem; padding:12px 24px;" href="katalog.html?'+qs+'">🛍️ Lihat Produk Terkurasi Khusus Mood Ini</a>'+
+     '</div>'+
+
+     alarm+
+
+     '<p style="margin-top:24px"><button class="btn alt" type="button" id="ulang">🔄 Ulangi Tes / Cek Anabul Lain</button></p>'+
+     '<p class="catatan">CatSociety • Happy Cats, Happy Humans 🧡 Data disimpan aman di peramban lokalmu.</p>';
+
+    r.hidden=false;
+    r.scrollIntoView({behavior:"smooth",block:"center"});
+
+    $("ulang").onclick=function(){
+      document.querySelectorAll("#form input").forEach(function(i){i.checked=false});
+      r.hidden=true;
+      $("mood").scrollIntoView({behavior:"smooth"});
+    };
   };
 })();
 </script>
