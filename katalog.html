@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katalog Produk – CatSociety</title>
+<meta name="description" content="Katalog produk CatSociety: makanan basah, makanan kering, snack, perawatan, dan perlengkapan anabul.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cokelat:#93371d;--kuning:#fffb8f;--biru:#2fa4c9;--teks:#333}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Nunito",Arial,sans-serif;color:var(--teks);line-height:1.6;background:#fff}
+.bungkus{width:min(1100px,92%);margin:0 auto}
+img{display:block;max-width:100%;height:auto}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #1a73e8;outline-offset:3px}
+header .bungkus{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;flex-wrap:wrap}
+.logo img{width:110px}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:6px;flex-wrap:wrap}
+nav a{display:block;padding:8px 16px;color:var(--teks);text-decoration:none;font-size:.95rem}
+nav a.aktif,nav a:hover{background:var(--cokelat);color:#fff}
+.judul{background:var(--cokelat);color:#fff;padding:36px 0;text-align:center}
+.judul h1{margin:0 0 6px;font-weight:300;font-size:2.2rem}
+.judul p{margin:0 0 14px}
+.tombol{display:inline-block;padding:9px 20px;border-radius:999px;font-size:.9rem;text-decoration:none;color:var(--cokelat);background:#fff;font-weight:600;border:0;cursor:pointer;font-family:inherit}
+.tombol.kuning{background:var(--kuning)}
+.pilihan{background:#fff4ea;padding:36px 0}
+.pilihan h2{margin:0 0 4px;color:var(--cokelat)}
+.bagian{background:#fff;border-radius:16px;padding:16px 20px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.bagian h3{margin:0;color:var(--cokelat)}
+.bagian .alasan{margin:0 0 8px;font-size:.9rem;color:#555}
+.cari{padding:28px 0 8px}
+.cari input{padding:10px 16px;border:1px solid #ccc;border-radius:999px;font:inherit;width:min(360px,100%)}
+.filter{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.filter button{font:inherit;cursor:pointer;padding:7px 16px;border:2px solid #e4c9bb;border-radius:999px;background:#fff}
+.filter button[aria-pressed=true]{background:var(--cokelat);color:#fff;border-color:var(--cokelat)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;padding:12px 0 48px}
+.kartu{border:1px solid #eee;border-radius:14px;padding:16px;background:#fff}
+.kartu small{color:var(--biru);font-weight:700}
+.kartu h3{margin:4px 0;font-size:1rem}
+.kartu p{margin:0;font-size:.88rem}
+.item{padding:8px 0;border-top:1px solid #f0e4dc}
+.item:first-of-type{border-top:0}
+.item b{display:block}
+.item span{font-size:.88rem}
+.catatan{font-size:.82rem;color:#666}
+footer{background:var(--cokelat);color:#fff;padding:26px 0;font-size:.9rem}
+footer .bungkus{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:#fff;margin-left:18px}
+footer a:first-child{margin-left:0}
+@media(max-width:700px){header .bungkus{justify-content:center}}
+</style>
+</head>
+<body>
+<header><div class="bungkus">
+<a class="logo" href="index.html"><img src="logo.png" alt="Logo CatSociety" width="110" height="110"></a>
+<nav aria-label="Menu utama"><ul>
+<li><a href="index.html">Home</a></li>
+<li><a class="aktif" href="katalog.html">Katalog</a></li>
+<li><a href="index.html#mood">Mood Anabul</a></li>
+<li><a href="index.html#kontak">Kontak</a></li>
+</ul></nav></div></header>
+
+<main>
+<section class="judul"><div class="bungkus">
+<h1>Katalog Produk</h1>
+<p>Makanan, snack, perawatan, dan perlengkapan favorit anabul.</p>
+<a class="tombol kuning" href="https://s.shopee.co.id/7zx8YazCsb" target="_blank" rel="noopener">Belanja di Shopee</a>
+<a class="tombol" href="https://blibli.onelink.me/GNtk/5qwj2i03" target="_blank" rel="noopener">Blibli</a>
+<a class="tombol" href="https://toco.id/link/3gtC7879R7nbFtY5GxPBy1" target="_blank" rel="noopener">Toco</a>
+</div></section>
+
+<section class="pilihan" id="pilihan" hidden><div class="bungkus">
+<h2 id="jdl"></h2>
+<p class="catatan">Pilihan ini dikurasi dari jawaban Mood Anabul-mu hari ini dan berganti-ganti setiap hari. Ketersediaan stok dan harga dapat dicek di toko online kami.</p>
+<div id="kurasi"></div>
+<p><a class="tombol" style="background:var(--cokelat);color:#fff" href="index.html#mood">Ulangi Mood Anabul</a></p>
+</div></section>
+
+<section class="cari"><div class="bungkus">
+<h2>Semua Produk</h2>
+<input type="search" id="q" placeholder="Cari produk…" aria-label="Cari produk">
+<div class="filter" id="filter" role="group" aria-label="Filter kategori"></div>
+<p class="catatan" id="jumlah" aria-live="polite"></p>
+<div class="grid" id="grid"></div>
+<p class="catatan">Deskripsi bersifat ringkas. Untuk produk perawatan dan obat, ikuti petunjuk kemasan dan konsultasikan ke dokter hewan bila perlu.</p>
+</div></section>
+</main>
+
+<footer><div class="bungkus">
+<span>© CatSociety · catsociety.web.id</span>
+<span><a href="index.html">Beranda</a><a href="https://www.instagram.com/catsocietyid/" target="_blank" rel="noopener">Instagram</a></span>
+</div></footer>
+
+<script>
+(function(){
+var items=[{"n": "Bio chopped chicken and tuna 80 gram pouch", "g": "Makanan Basah", "d": "Makanan basah pouch 80 g dengan potongan ayam dan tuna.", "t": "WA"}, {"n": "Bolt Wet Food Adult Salmon Flavour 80 g", "g": "Makanan Basah", "d": "Makanan basah dewasa rasa salmon, pouch 80 g.", "t": "WA"}, {"n": "Bolt Cat Food Freshpack Tuna 800 g (Bentuk donut)", "g": "Makanan Kering", "d": "Makanan kering rasa tuna 800 g, berbentuk donut.", "t": "DA"}, {"n": "Bravery Adult Cat Chicken 2KG", "g": "Makanan Kering", "d": "Makanan kering dewasa rasa ayam, kemasan hemat 2 kg.", "t": "DA"}, {"n": "Bravery Adult Cat Salmon 2KG", "g": "Makanan Kering", "d": "Makanan kering dewasa rasa salmon, kemasan hemat 2 kg.", "t": "DA"}, {"n": "Happy Cat Urinary Control 1,3 Kg", "g": "Makanan Kering", "d": "Makanan kering varian kontrol saluran kemih (urinary), 1,3 kg.", "t": "DU"}, {"n": "Life Cat Wet Food Tuna Kitten 85 gr", "g": "Makanan Basah", "d": "Makanan basah anak kucing rasa tuna, 85 g.", "t": "WK"}, {"n": "Lifecat kitten chunk in gravy 85 gram pouch", "g": "Makanan Basah", "d": "Makanan basah anak kucing, potongan dalam kuah (gravy), pouch 85 g.", "t": "WK"}, {"n": "Maxlife Cat Creamy Treats Snack Chicken 14gr x 4", "g": "Snack dan Treats", "d": "Camilan creamy rasa ayam, 4 sachet @14 g, cocok untuk hadiah atau pendekatan.", "t": "T"}, {"n": "MeO Tuna 1,2 Kg", "g": "Makanan Kering", "d": "Makanan kering rasa tuna, kemasan 1,2 kg.", "t": "DA"}, {"n": "Neoterica MsKiss Ecolife Spot On EXTRA IMMUNO", "g": "Perawatan dan Obat", "d": "Obat tetes tengkuk (spot-on) varian Extra Immuno. Ikuti petunjuk kemasan dan konsultasikan ke dokter hewan.", "t": "C"}, {"n": "Neoterica MsKiss Ecolife Spot On Skin & Wool", "g": "Perawatan dan Obat", "d": "Obat tetes tengkuk (spot-on) varian Skin & Wool untuk kulit dan bulu. Ikuti petunjuk kemasan.", "t": "C"}, {"n": "Neoterica Animal Play 250ml Hypoallergenic- Shampo PH Balance", "g": "Perawatan dan Obat", "d": "Sampo hypoallergenic pH balance 250 ml untuk memandikan anabul.", "t": "C"}, {"n": "Super Cat Wet Food Seafood Platter Supreme 400 gram", "g": "Makanan Basah", "d": "Makanan basah rasa seafood platter, kemasan 400 g.", "t": "W"}, {"n": "Super Cat Wet Food Ocean Fish 400 gram", "g": "Makanan Basah", "d": "Makanan basah rasa ikan laut (ocean fish), kemasan 400 g.", "t": "W"}, {"n": "Toms Cat Food Tuna & Lamb 1,2 Kg", "g": "Makanan Kering", "d": "Makanan kering rasa tuna dan domba, kemasan 1,2 kg.", "t": "DA"}, {"n": "Whiskas mackarel and salmon flavour 80 gram pouch", "g": "Makanan Basah", "d": "Makanan basah rasa makerel dan salmon, pouch 80 g.", "t": "WA"}, {"n": "Whiskas Cat Wet Food Adult Chicken 80 g pouch", "g": "Makanan Basah", "d": "Makanan basah dewasa rasa ayam, pouch 80 g.", "t": "WA"}, {"n": "Whiskas mackarel Value Pack box (isi 6) 80 gram pouch", "g": "Makanan Basah", "d": "Paket hemat isi 6 pouch rasa makerel, @80 g.", "t": "WAP"}, {"n": "Whiskas Tuna Value pack box (isi 6) 80 gram pouch", "g": "Makanan Basah", "d": "Paket hemat isi 6 pouch rasa tuna, @80 g.", "t": "WAP"}, {"n": "Whiskas Junior Wet Food Tuna Flavour Value Pack Box (isi 6) 80 g pouch", "g": "Makanan Basah", "d": "Paket hemat isi 6 pouch rasa tuna untuk anak kucing (junior), @80 g.", "t": "WKP"}, {"n": "Jadeite Pet Drinking", "g": "Non Pangan", "d": "Tempat minum untuk anabul.", "t": "B"}, {"n": "Lint Roller / Pembersih Bulu", "g": "Non Pangan", "d": "Pembersih bulu untuk pakaian dan sofa.", "t": "N"}, {"n": "Tangga Rumah Kucing", "g": "Non Pangan", "d": "Tangga untuk rumah kucing, menambah area naik-turun.", "t": "H"}, {"n": "Rumah Kucing", "g": "Non Pangan", "d": "Rumah kucing sebagai tempat istirahat dan bersembunyi.", "t": "H"}, {"n": "Litter Box", "g": "Non Pangan", "d": "Litter box atau bak pasir untuk kebutuhan buang air.", "t": "L"}, {"n": "BEAUTY CAT FOOD ADULT CATS & KITTENS Chicken and Salmon Flavor 1KG", "g": "Makanan Kering", "d": "Makanan kering untuk kucing dewasa dan anak kucing, rasa ayam dan salmon, 1 kg.", "t": "DAK"}, {"n": "Paws Collections Pet Bowl / Tempat Makan Kucing", "g": "Non Pangan", "d": "Mangkuk makan untuk anabul.", "t": "B"}, {"n": "Bravery Adult Cat Salmon 400Gram", "g": "Makanan Kering", "d": "Makanan kering dewasa rasa salmon, kemasan 400 g.", "t": "DA"}, {"n": "Bravery Adult Cat Salmon 400Gram Kitten", "g": "Makanan Kering", "d": "Makanan kering anak kucing rasa salmon, kemasan 400 g.", "t": "DK"}, {"n": "Pure Bite Skin and Hair Beauty Salmon and Chicken 1,5 Kg", "g": "Makanan Kering", "d": "Makanan kering rasa salmon dan ayam, varian perawatan kulit dan bulu, 1,5 kg.", "t": "DAS"}, {"n": "Royal Canin Recovery 195 gram", "g": "Makanan Basah", "d": "Makanan basah Recovery 195 g untuk masa pemulihan; umumnya digunakan atas saran dokter hewan.", "t": "WV"}, {"n": "Rumah Kucing Tempel", "g": "Non Pangan", "d": "Rumah kucing model tempel.", "t": "H"}, {"n": "Animalco Pasir kucing 5 liter - Lavender", "g": "Non Pangan", "d": "Pasir kucing aroma lavender, 5 liter.", "t": "L"}, {"n": "Bolt Mother & Kitten Cat Food Salmon 500gram", "g": "Makanan Kering", "d": "Makanan kering induk dan anak kucing rasa salmon, 500 g.", "t": "DK"}, {"n": "Bolt Cat Food Freshpack Salmon 800 g (Bentuk Bulat)", "g": "Makanan Kering", "d": "Makanan kering rasa salmon 800 g, berbentuk bulat.", "t": "DA"}, {"n": "Cat Choize Mother & Kitten Tuna 800g", "g": "Makanan Kering", "d": "Makanan kering induk dan anak kucing rasa tuna, 800 g.", "t": "DK"}, {"n": "Cat Choize Adult Rasa Salmon 800 g", "g": "Makanan Kering", "d": "Makanan kering dewasa rasa salmon, 800 g.", "t": "DA"}, {"n": "Cat Choize Adult Rasa Tuna 800 g", "g": "Makanan Kering", "d": "Makanan kering dewasa rasa tuna, 800 g.", "t": "DA"}, {"n": "Excel Kitten Cat Food Rasa Tuna 500 g", "g": "Makanan Kering", "d": "Makanan kering anak kucing rasa tuna, 500 g.", "t": "DK"}, {"n": "Kitchen Flavor Grain Free Cat Food Beauty All Life 1,5 kg", "g": "Makanan Kering", "d": "Makanan kering grain free varian beauty untuk segala usia, 1,5 kg.", "t": "DAKS"}, {"n": "Kitchen Flavor Grain Free Cat Food Baby Kitten & Kitten 1,5 kg", "g": "Makanan Kering", "d": "Makanan kering grain free untuk bayi kucing dan anak kucing, 1,5 kg.", "t": "DK"}, {"n": "Kitchen Flavor Special Care Urinary 1,5 kg", "g": "Makanan Kering", "d": "Makanan kering special care urinary, 1,5 kg.", "t": "DU"}, {"n": "Max Life Pasir Lavender 5 Liter", "g": "Non Pangan", "d": "Pasir kucing aroma lavender, 5 liter.", "t": "L"}, {"n": "Markotops Pasir Kucing Kopi 5,5 Liter", "g": "Non Pangan", "d": "Pasir kucing aroma kopi, 5,5 liter.", "t": "L"}];
+var $=function(i){return document.getElementById(i)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
+
+/* Semua produk + filter + cari */
+var grup=["Semua"].concat(items.map(function(i){return i.g}).filter(function(g,i,a){return a.indexOf(g)===i}));
+var aktif="Semua";
+function gambar(){
+  var q=$("q").value.toLowerCase(),g=$("grid");g.innerHTML="";
+  var hasil=items.filter(function(i){return(aktif==="Semua"||i.g===aktif)&&(i.n+" "+i.d).toLowerCase().indexOf(q)>-1});
+  hasil.forEach(function(i){var k=el("div","kartu");k.appendChild(el("small","",i.g));k.appendChild(el("h3","",i.n));k.appendChild(el("p","",i.d));g.appendChild(k)});
+  $("jumlah").textContent=hasil.length+" produk";
+}
+grup.forEach(function(n){var b=el("button","",n);b.type="button";b.setAttribute("aria-pressed",n===aktif);
+  b.onclick=function(){aktif=n;[].forEach.call($("filter").children,function(x){x.setAttribute("aria-pressed",x===b)});gambar()};
+  $("filter").appendChild(b)});
+$("q").oninput=gambar;gambar();
+
+/* Kurasi berdasarkan mood */
+var P=new URLSearchParams(location.search);
+if(!P.get("m"))return;
+var hari=Math.floor(Date.now()/864e5);
+function f(tags,n,ex){
+  var a=items.filter(function(i){return tags.split("").every(function(t){return i.t.indexOf(t)>-1})&&!(ex||"").split("").some(function(t){return t&&i.t.indexOf(t)>-1})});
+  if(!a.length)return[];var o=hari%a.length;a=a.slice(o).concat(a.slice(0,o));return a.slice(0,n)}
+var seen={},S=[];
+function add(j,alasan,list){list=list.filter(function(i){if(seen[i.n])return false;seen[i.n]=1;return true});if(list.length)S.push([j,alasan,list])}
+var m=P.get("m"),usia=P.get("usia"),mk=P.get("makan"),ak=P.get("aktif"),sk=P.get("sikap"),aku=P.get("aku"),w=P.get("waktu"),cu=P.get("cuaca");
+if(usia==="kitten")add("Untuk si kecil","Anak kucing butuh makanan khusus masa tumbuh.",f("K",4,"P"));
+else if(usia==="senior")add("Tekstur lembut","Makanan basah umumnya lebih mudah dimakan.",f("W",3,"VKP"));
+else if(mk!=="malas")add("Makanan harian","Pilihan makanan kering untuk kucing dewasa.",f("DA",3,"U"));
+if(mk==="malas"){add("Penggoda selera","Makanan basah beraroma kuat sering memancing nafsu makan.",f("W",4,"VKP"));
+  if(sk==="ngumpet"||ak==="tidur")add("Atas saran dokter hewan","Jika nafsu makan turun lebih dari 24 jam, periksakan ke dokter hewan. Produk ini umumnya diberikan atas anjuran dokter.",f("V",1))}
+if(cu==="panas")add("Tetap segar saat panas","Sediakan air minum segar dan makanan basah.",f("B",2).concat(f("W",1,"VKP")));
+if(cu==="hujan"||cu==="sejuk")add("Hangat dan nyaman","Sediakan sudut hangat untuk meringkuk.",f("H",2));
+if(m==="zoom")add("Salurkan energi","Treat dan area panjat untuk si zoomies.",f("T",1).concat(f("H",1)));
+if(m==="happy"||m==="santai")add("Hadiah manis","Rayakan mood bagus dengan camilan.",f("T",1));
+if(m==="bete")add("Tempat aman dan hadiah kecil","Beri sudut bersembunyi dan treat pelan-pelan.",f("T",1).concat(f("H",1)));
+if(m==="mager")add("Sudut nyaman","Tempat istirahat favorit para mager.",f("H",2));
+if(aku==="capek"||w==="mepet")add("Serba praktis","Paket hemat dan perlengkapan yang bikin hari lebih ringan.",f("P",2).concat(f("L",1)));
+var E={zoom:"🤪 Mode Zoomies",mager:"😴 Mager Elegan",bete:"🙀 Lagi Butuh Perhatian",happy:"😻 Juragan Happy",santai:"😸 Santai Bahagia"};
+$("jdl").textContent="Dikurasi untuk mood hari ini: "+(E[m]||"");
+var k=$("kurasi");
+S.forEach(function(s){var b=el("div","bagian");b.appendChild(el("h3","",s[0]));b.appendChild(el("p","alasan",s[1]));
+  s[2].forEach(function(i){var d=el("div","item");d.appendChild(el("b","",i.n));d.appendChild(el("span","",i.d));b.appendChild(d)});k.appendChild(b)});
+$("pilihan").hidden=false;
+})();
+</script>
+</body>
+</html>

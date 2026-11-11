@@ -113,6 +113,11 @@
   .catatan { font-size:.8rem; color:#666; }
   .cokelat-note { background:#fde8e1; border-radius:12px; padding:10px 14px; font-size:.9rem; text-align:left; }
 
+  .mood textarea { width:100%; padding:10px 14px; border:1px solid #ccc; border-radius:14px; font:inherit; margin-top:8px; }
+  .mood .chip { border:1px dashed var(--cokelat); background:#fff; color:var(--cokelat); padding:4px 12px; border-radius:99px; font-size:.82rem; }
+  .ajak { background:#fff8c9; border:2px dashed var(--cokelat); border-radius:14px; padding:14px; margin:14px 0; text-align:left; }
+  .ajak .tombol { margin-top:8px; border:1px solid var(--cokelat); }
+  .cerita { background:#fff4ea; border-radius:14px; padding:12px 16px; margin:12px auto; max-width:560px; text-align:left; }
   /* HP */
   @media (max-width: 800px) {
     .hero, .belanja .bungkus, .sitter .isi, .kontak .bungkus { grid-template-columns: 1fr; }
@@ -133,6 +138,7 @@
       <ul>
         <li><a class="aktif" href="#home">Home</a></li>
         <li><a href="#shop">Shop</a></li>
+        <li><a href="katalog.html">Katalog</a></li>
         <li><a href="#mood">Mood Anabul</a></li>
         <li><a href="#kontak">Kontak</a></li>
         <li><a href="https://catsociety.duckdns.org/" target="_blank" rel="noopener">Internal Access</a></li>
@@ -227,6 +233,18 @@
       <div class="kotak">
         <h3>2. Ceritakan tentang kalian</h3>
         <div id="form"></div>
+        <fieldset>
+          <legend>📖 Ceritakan anabulmu (opsional)</legend>
+          <input type="text" id="nama" maxlength="30" placeholder="Nama anabul" aria-label="Nama anabul">
+          <textarea id="cerita" maxlength="400" rows="3" placeholder="Contoh: Mochi suka tidur di atas laptop tiap aku kerja… 😹" aria-label="Cerita tentang anabul"></textarea>
+          <div class="baris" style="margin-top:8px">
+            <span class="catatan">Butuh ide?</span>
+            <button type="button" class="chip" data-ide="Kebiasaan paling lucunya:">Kebiasaan lucu</button>
+            <button type="button" class="chip" data-ide="Momen yang bikin aku jatuh cinta padanya:">Momen jatuh cinta</button>
+            <button type="button" class="chip" data-ide="Makanan favoritnya:">Makanan favorit</button>
+            <button type="button" class="chip" data-ide="Tingkah juragannya yang bikin gemas:">Tingkah juragan</button>
+          </div>
+        </fieldset>
         <button class="btn" type="button" id="btnHasil">Lihat Mood Anabul 😺</button>
         <p id="galat" class="catatan" role="alert"></p>
       </div>
@@ -279,6 +297,7 @@
   <div class="bungkus">
     <span>© CatSociety · catsociety.web.id</span>
     <span>
+      <a href="katalog.html">Katalog</a>
       <a href="https://www.instagram.com/catsocietyid/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://catsociety.duckdns.org/" target="_blank" rel="noopener">Internal Access</a>
       <a href="https://mail.zoho.com/zm/#mail/folder/inbox" target="_blank" rel="noopener">Login Webmail</a>
@@ -298,6 +317,8 @@
    {k:"aku",t:"Mood kamu hari ini?",o:[["Semangat 💪","semangat",0,0],["Biasa saja","biasa",0,0],["Capek 🥱","capek",0,0]]},
    {k:"waktu",t:"Waktu luang untuk si pus?",o:[["Banyak (15+ menit)","banyak",0,0],["Sebentar (5-10 menit)","sebentar",0,0],["Nyaris tidak ada","mepet",0,0]]}
   ];
+  function esc(x){return x.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  document.querySelectorAll("[data-ide]").forEach(function(b){b.onclick=function(){var t=$("cerita");t.value+=(t.value?" ":"")+b.dataset.ide+" ";t.focus()}});
   var A={},W=null,$=function(i){return document.getElementById(i)};
   $("form").innerHTML=Q.map(function(q){return '<fieldset><legend>'+q.t+'</legend><div class="baris">'+q.o.map(function(o,i){return '<label class="pil"><input type="radio" name="'+q.k+'" value="'+i+'"><span>'+o[0]+'</span></label>'}).join("")+'</div></fieldset>'}).join("");
 
@@ -376,13 +397,20 @@
     }catch(x){}
     var lv=n>=7?"👑 Juragan Sejati":n>=3?"🏅 Pawrent Setia":"🐾 Cat Parent Baru";
 
+    var KEY={"Mode Zoomies":"zoom","Mager Elegan":"mager","Lagi Butuh Perhatian":"bete","Juragan Happy":"happy","Santai Bahagia":"santai"};
+    var nama=esc($("nama").value.trim().slice(0,30)),cerita=esc($("cerita").value.trim().slice(0,400)),nm=nama||"si pus";
+    var qs=["usia","makan","aktif","sikap","aku","waktu"].map(function(k){return k+"="+pilih[k]}).join("&")+"&cuaca="+W+"&m="+KEY[m[1]];
+    var wa="https://wa.me/62896549780033?text="+encodeURIComponent("Halo CatSociety! Saya mau cerita tentang "+($("nama").value.trim()||"anabul saya")+". "+$("cerita").value.trim().slice(0,300));
+    var ajak=(pilih.aku==="capek"||pilih.waktu==="mepet")?'<div class="ajak"><b>💛 Yuk... coba ngobrol dengan kami...</b><br>Mungkin kami bisa bantu dengan layanan pet-sitter, supaya '+nm+' tetap diperhatikan saat kamu sibuk atau capek.<br><a class="tombol kuning" href="'+wa+'" target="_blank" rel="noopener">Ngobrol via WhatsApp</a> <a class="tombol" href="#petsitter">Lihat layanan Pet Sitter</a></div>':"";
+    var kartu=cerita?'<div class="cerita"><b>📖 Cerita '+nm+'</b><br>“'+cerita+'”<br><small>Makasih sudah cerita! Kami suka dengar kisah anabul. <a href="'+wa+'" target="_blank" rel="noopener">Kirim ceritamu ke kami</a></small></div>':"";
+    var pend=cerita.length>=20?'<div class="lencana">📖 Pendongeng Anabul</div> ':"";
     var r=$("hasil");
-    r.innerHTML='<div class="emoji">'+m[0]+'</div><h3 style="font-size:1.5rem">'+m[1]+'</h3>'+
+    r.innerHTML='<div class="emoji">'+m[0]+'</div><h3 style="font-size:1.5rem">'+(nama?nama+": ":"")+m[1]+'</h3>'+
      '<p>Happy meter</p>'+bar(hp,"h")+'<p>Energi</p>'+bar(ep,"e")+
-     '<div class="lencana">'+lv+' · check-in hari ke-'+n+'</div>'+
+     '<div class="lencana">'+lv+' · check-in hari ke-'+n+'</div> '+pend+kartu+
      '<h3>🍽️ Saran makanan</h3><p><b>'+f[0]+'</b><br>'+f[1]+'</p><p>'+tombol()+'</p>'+
      '<h3>🎾 Saran interaksi</h3><ul>'+t.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>'+
-     '<p>Mau treat atau mainan? '+tombol()+'</p>'+alarm+
+     '<p>Mau treat atau mainan? '+tombol()+'</p>'+ajak+'<p><a class="tombol kuning" style="border:1px solid var(--cokelat)" href="katalog.html?'+qs+'">🛍️ Lihat produk pilihan untuk mood hari ini</a></p>'+alarm+
      '<p><button class="btn alt" type="button" id="ulang">Main lagi</button></p>'+
      '<p class="catatan">Happy Cats, Happy Humans. 🧡 Cek-in setiap hari untuk naik level.</p>';
     r.hidden=false;r.scrollIntoView({behavior:"smooth",block:"center"});
