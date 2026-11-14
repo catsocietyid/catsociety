@@ -363,6 +363,7 @@
   // Alamat Worker diambil dari pengaturan.js (tidak perlu diubah di sini)
   var API_NARASI=(window.CS_WORKER&&window.CS_WORKER.indexOf("GANTI")<0)?window.CS_WORKER+"/narasi":"";
   var API_BALAS=(window.CS_WORKER&&window.CS_WORKER.indexOf("GANTI")<0)?window.CS_WORKER+"/balas":"";
+  function kodeJaringan(e){return e&&e.name==="AbortError"?"WAKTU_HABIS":(e&&e.message&&/^[A-Z_0-9]+$/.test(e.message)?e.message:"JARINGAN_ATAU_IZIN_SITUS")}
   function esc(x){return x?x.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]}):""}
   
   // Synthesizer suara "Ngeong" realistis via Web Audio API
@@ -611,10 +612,10 @@
         bt.style.cssText="margin-top:10px;border:1px solid var(--cokelat);cursor:pointer;font:inherit";
         bt.textContent="✍️ Minta Buncil menulis ulang";bt.onclick=tulis;isi.appendChild(bt);
       }
-      function gagal(alasan){
+      function gagal(alasan,kode){
         isi.innerHTML=batinTeks;
         if(alasan==="batas"){catatanKecil("Batas penulisan surat hari ini sudah tercapai. Besok Buncil menulis lagi 🧡")}
-        else{catatanKecil("Ini teks cadangan karena Buncil AI sedang istirahat.");tombolUlang()}
+        else{catatanKecil("Ini teks cadangan karena Buncil AI sedang istirahat. (kode: "+(kode||"TIDAK_DIKETAHUI")+")");tombolUlang()}
       }
       function tulis(){
         box.classList.remove("hangat");box.setAttribute("aria-busy","true");
@@ -622,17 +623,17 @@
         var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},25000);
         fetch(API_NARASI,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
           body:JSON.stringify({sid:sid,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim()})})
-         .then(function(x){if(!x.ok)throw 0;return x.json()})
+         .then(function(x){if(!x.ok)throw new Error("HTTP_"+x.status);return x.json()})
          .then(function(d){
            clearTimeout(to);
-           if(!(d&&d.ok&&(d.surat||d.catatan))){gagal(d&&d.alasan);return}
+           if(!(d&&d.ok&&(d.surat||d.catatan))){gagal(d&&d.alasan,d&&d.kode);return}
            isi.textContent="";
            if(d.surat){d.surat.split(/\n+/).forEach(function(t){var e=document.createElement("p");e.textContent=t;isi.appendChild(e)})}else{box.classList.add("hangat")}
            if(d.catatan){var c=document.createElement("div");c.className="catatan-ai";var b=document.createElement("b");b.textContent="🧡 Catatan untuk "+rawOwn+": ";c.appendChild(b);c.appendChild(document.createTextNode(d.catatan));isi.appendChild(c)}
            catatanKecil("Ditulis oleh Buncil (AI) khusus untuk kalian. Hanya untuk hiburan dan inspirasi, bukan nasihat medis.");
            tombolUlang();
          })
-         .catch(function(){gagal()})
+         .catch(function(e){gagal(null,kodeJaringan(e))})
          .then(function(){box.setAttribute("aria-busy","false")});
       }
       tulis();
@@ -655,15 +656,15 @@
         var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},25000);
         fetch(API_BALAS,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
           body:JSON.stringify({sid:sid,pesan:t,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim()})})
-         .then(function(x){if(!x.ok)throw 0;return x.json()})
+         .then(function(x){if(!x.ok)throw new Error("HTTP_"+x.status);return x.json()})
          .then(function(d){
            clearTimeout(to);
-           if(!d||!d.reply||d.ok===false)throw 0;
+           if(!d||!d.reply||d.ok===false)throw new Error((d&&d.kode)||"TIDAK_ADA_BALASAN");
            w.textContent=d.reply;n=Math.min(Math.max(d.n||n+1,n+1),MAX);
            cat.textContent="Interaksi "+n+"/"+MAX+" · Buncil adalah AI, jangan kirim data pribadi.";
            if(d.done||n>=MAX){n=MAX;selesai()}else{inp.disabled=false;btn.disabled=false;inp.focus()}
          })
-         .catch(function(){w.textContent="Buncil sedang istirahat 😴 Pesanmu belum terkirim. Coba kirim lagi sebentar lagi ya.";inp.value=t;inp.disabled=false;btn.disabled=false})
+         .catch(function(e){w.textContent="Buncil sedang istirahat 😴 Pesanmu belum terkirim, coba kirim lagi sebentar lagi ya. (kode: "+kodeJaringan(e)+")";inp.value=t;inp.disabled=false;btn.disabled=false})
       };
     })();
 
