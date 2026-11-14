@@ -102,6 +102,13 @@
   .batin-box { background:#fff8e7; border:2px dashed #f3c26b; border-radius:16px; padding:18px; margin:18px 0; text-align:left; position:relative; }
   .batin-box::before { content:"💬 Batin Si Juragan:"; font-weight:700; color:var(--cokelat); display:block; margin-bottom:6px; font-size:.95rem; }
   .batin-teks { font-style:italic; font-size:1.05rem; color:#444; line-height:1.5; }
+  .batin-teks p { margin:0 0 10px; }
+  .batin-box.hangat::before { content:"🧡 Catatan Hangat untuk Pawrent:"; }
+  .catatan-ai { font-style:normal; background:#fff; border-radius:12px; padding:10px 14px; margin-top:10px; font-size:.95rem; }
+  .tag-ai { display:block; font-style:normal; font-size:.75rem; color:#777; margin-top:10px; }
+  .menulis::after { content:"…"; animation:titik 1.2s infinite; }
+  @keyframes titik { 0%{opacity:.2} 50%{opacity:1} 100%{opacity:.2} }
+  @media (prefers-reduced-motion: reduce) { .menulis::after { animation:none; } }
   
   .hasil ul { text-align:left; margin:12px 0; padding-left:22px; font-size:.95rem; }
   .hasil li { margin-bottom:6px; }
@@ -145,6 +152,7 @@
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .emoji-header { animation:none; } }
 </style>
+<script src="pengaturan.js"></script>
 </head>
 <body>
 
@@ -216,7 +224,7 @@
           <p><b>Tenang, CatSociety siap membantu!</b></p>
           <p>Melalui layanan Pet Sitter, kami memastikan anabul tetap mendapatkan perhatian, makanan, dan stimulasi bermain saat kamu tidak berada di rumah. Karena mereka bukan sekadar hewan peliharaan, mereka adalah juragan kecil yang punya rutinitas istimewa. 👑</p>
           <p><i>You take care of your day. We’ll help take care of your little boss.</i></p>
-          <p style="margin-top:16px"><a class="tombol kuning" style="border:1px solid var(--cokelat)" href="https://wa.me/62896549780033?text=Halo%20CatSociety,%20saya%20mau%20tanya%20layanan%20Pet%20Sitter" target="_blank" rel="noopener">Chat Pet Sitter via WhatsApp 💬</a></p>
+          <p style="margin-top:16px"><a class="tombol kuning" style="border:1px solid var(--cokelat)" href="https://wa.me/6289654978033?text=Halo%20CatSociety,%20saya%20mau%20tanya%20layanan%20Pet%20Sitter" target="_blank" rel="noopener">Chat Pet Sitter via WhatsApp 💬</a></p>
         </div>
         <div class="foto">
           <img src="petsitter1.jpg" alt="Dua kucing putih melihat keluar jendela" width="260" height="190">
@@ -287,7 +295,7 @@
           <div>
             <div class="ikon" aria-hidden="true">💬</div>
             <h3><b>WhatsApp</b> Chat</h3>
-            <p><a href="https://wa.me/62896549780033" target="_blank" rel="noopener">0896 - 5497 - 8033</a></p>
+            <p><a href="https://wa.me/6289654978033" target="_blank" rel="noopener">0896 - 5497 - 8033</a></p>
           </div>
           <div>
             <div class="ikon" aria-hidden="true">📍</div>
@@ -343,6 +351,8 @@
    {k:"waktu",t:"6. Waktu luang kamu untuk si meong?",o:[["Banyak (15+ Menit) ⏳","banyak",0,0],["Sebentar (5-10 Menit) ⏱️","sebentar",0,0],["Mepet / Super Sibuk 🚨","mepet",0,0]]}
   ];
 
+  // GANTI dengan alamat Worker Anda + /narasi (sama dengan alamat di chat.js, tetapi berakhiran /narasi)
+  var API_NARASI=(window.CS_WORKER&&window.CS_WORKER.indexOf("GANTI")<0)?window.CS_WORKER+"/narasi":"";
   function esc(x){return x?x.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]}):""}
   
   // Synthesizer suara "Ngeong" realistis via Web Audio API
@@ -426,7 +436,7 @@
     var o = owner || "binti pelayan favoritku";
     var n = nm || "aku";
     
-    if(moodKat === "Mode Zoomies"){
+    if(moodKat.indexOf("Zoomies")>-1){
       return "“Dengarlah wahai "+o+"! Lantai rumah ini adalah sirkuit Formula 1 jam 3 pagi! Persiapkan dirimu untuk melihat atraksi parkour dari atas lemari ke kepalamu!” 🏎️💨";
     }
     if(sikap === "ngumpet"){
@@ -511,7 +521,7 @@
     
     // WA Link & Pet Sitter Trigger
     var textWA = "Halo CatSociety! Saya "+own+" mau cerita tentang "+nm+" (Mood: "+m[1]+"). "+(ceritaUser?"Cerita: "+ceritaUser:"");
-    var wa="https://wa.me/62896549780033?text="+encodeURIComponent(textWA);
+    var wa="https://wa.me/6289654978033?text="+encodeURIComponent(textWA);
     
     var ajak = (pilih.aku==="capek"||pilih.waktu==="mepet") ? 
       '<div class="ajak"><h4>💛 Butuh Bantuan Menjaga '+nm+' Hari Ini?</h4>'+
@@ -530,7 +540,7 @@
      '<h3 style="font-size:1.6rem; justify-content:center; margin-bottom:4px;">'+(namaCat?namaCat+": ":"")+m[1]+'</h3>'+
      '<p style="margin:0 0 12px; color:#555; font-size:.95rem;">Analisis Pasangan: <b>'+nm+'</b> & <b>'+own+'</b></p>'+
      
-     '<div class="batin-box"><div class="batin-teks">'+batinTeks+'</div></div>'+
+     '<div class="batin-box" id="batinBox" aria-busy="false"><div class="batin-teks" id="batinIsi">'+batinTeks+'</div></div>'+
 
      '<div class="meter-container">'+
        '<div class="meter-label"><span>Skor Sinergi Hubungan Kalian</span><span>'+sinergi+'%</span></div>'+
@@ -547,13 +557,13 @@
 
      kartuCerita+
 
-     '<div style="text-align:left; background:#fff; border-radius:16px; padding:18px; border:1fr solid #eee; margin:16px 0;">'+
+     '<div style="text-align:left; background:#fff; border-radius:16px; padding:18px; border:1px solid #eee; margin:16px 0;">'+
        '<h3 style="margin-top:0">🍽️ Rekomendasi Menu & Nutrisi</h3>'+
        '<p style="margin:0 0 10px"><b>'+f[0]+'</b><br><span style="font-size:.9rem; color:#555">'+f[1]+'</span></p>'+
        '<p style="margin:0">'+tombol()+'</p>'+
      '</div>'+
 
-     '<div style="text-align:left; background:#fff; border-radius:16px; padding:18px; border:1fr solid #eee; margin:16px 0;">'+
+     '<div style="text-align:left; background:#fff; border-radius:16px; padding:18px; border:1px solid #eee; margin:16px 0;">'+
        '<h3 style="margin-top:0">🎾 Saran Aktivitas & Interaksi</h3>'+
        '<ul>'+t.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>'+
      '</div>'+
@@ -571,6 +581,29 @@
 
     r.hidden=false;
     r.scrollIntoView({behavior:"smooth",block:"center"});
+
+    (function narasiAI(){
+      if(!API_NARASI||API_NARASI.indexOf("GANTI")>-1) return; // belum dikonfigurasi: tetap pakai teks bawaan
+      var box=$("batinBox"),isi=$("batinIsi");
+      var rawOwn=$("namaOwner").value.trim().slice(0,30)||"Pawrent";
+      box.setAttribute("aria-busy","true");
+      isi.innerHTML='<span class="menulis">Buncil sedang menulis surat khusus untukmu</span>';
+      var sid; try{sid=localStorage.getItem("cs_sid");if(!sid){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36);localStorage.setItem("cs_sid",sid)}}catch(e){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36)}
+      var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},15000);
+      fetch(API_NARASI,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
+        body:JSON.stringify({sid:sid,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim(),vitalitas:ep,sinergi:sinergi,makanan:f[0]})})
+       .then(function(x){if(!x.ok)throw 0;return x.json()})
+       .then(function(d){
+         clearTimeout(to);
+         if(!d||(!d.surat&&!d.catatan))throw 0;
+         isi.textContent="";
+         if(d.surat){d.surat.split(/\n+/).forEach(function(t){var e=document.createElement("p");e.textContent=t;isi.appendChild(e)})}else{box.classList.add("hangat")}
+         if(d.catatan){var c=document.createElement("div");c.className="catatan-ai";var b=document.createElement("b");b.textContent="🧡 Catatan untuk "+rawOwn+": ";c.appendChild(b);c.appendChild(document.createTextNode(d.catatan));isi.appendChild(c)}
+         var tg=document.createElement("small");tg.className="tag-ai";tg.textContent="Ditulis oleh Buncil (AI) dari jawabanmu. Hanya untuk hiburan dan inspirasi, bukan nasihat medis.";isi.appendChild(tg);
+       })
+       .catch(function(){isi.innerHTML=batinTeks})
+       .then(function(){box.setAttribute("aria-busy","false")});
+    })();
 
     $("ulang").onclick=function(){
       document.querySelectorAll("#form input").forEach(function(i){i.checked=false});
