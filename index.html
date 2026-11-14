@@ -601,26 +601,41 @@
     r.scrollIntoView({behavior:"smooth",block:"center"});
 
     (function narasiAI(){
-      if(!API_NARASI||API_NARASI.indexOf("GANTI")>-1) return; // belum dikonfigurasi: tetap pakai teks bawaan
+      if(!API_NARASI) return; // belum dikonfigurasi: tetap pakai teks bawaan
       var box=$("batinBox"),isi=$("batinIsi");
       var rawOwn=$("namaOwner").value.trim().slice(0,30)||"Pawrent";
-      box.setAttribute("aria-busy","true");
-      isi.innerHTML='<span class="menulis">Buncil sedang menulis surat khusus untukmu</span>';
       var sid; try{sid=localStorage.getItem("cs_sid");if(!sid){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36);localStorage.setItem("cs_sid",sid)}}catch(e){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36)}
-      var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},15000);
-      fetch(API_NARASI,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
-        body:JSON.stringify({sid:sid,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim(),vitalitas:ep,sinergi:sinergi,makanan:f[0]})})
-       .then(function(x){if(!x.ok)throw 0;return x.json()})
-       .then(function(d){
-         clearTimeout(to);
-         if(!d||(!d.surat&&!d.catatan))throw 0;
-         isi.textContent="";
-         if(d.surat){d.surat.split(/\n+/).forEach(function(t){var e=document.createElement("p");e.textContent=t;isi.appendChild(e)})}else{box.classList.add("hangat")}
-         if(d.catatan){var c=document.createElement("div");c.className="catatan-ai";var b=document.createElement("b");b.textContent="🧡 Catatan untuk "+rawOwn+": ";c.appendChild(b);c.appendChild(document.createTextNode(d.catatan));isi.appendChild(c)}
-         var tg=document.createElement("small");tg.className="tag-ai";tg.textContent="Ditulis oleh Buncil (AI) dari jawabanmu. Hanya untuk hiburan dan inspirasi, bukan nasihat medis.";isi.appendChild(tg);
-       })
-       .catch(function(){isi.innerHTML=batinTeks})
-       .then(function(){box.setAttribute("aria-busy","false")});
+      function catatanKecil(teks){var tg=document.createElement("small");tg.className="tag-ai";tg.textContent=teks;isi.appendChild(tg)}
+      function tombolUlang(){
+        var bt=document.createElement("button");bt.type="button";bt.className="tombol kuning";
+        bt.style.cssText="margin-top:10px;border:1px solid var(--cokelat);cursor:pointer;font:inherit";
+        bt.textContent="✍️ Minta Buncil menulis ulang";bt.onclick=tulis;isi.appendChild(bt);
+      }
+      function gagal(alasan){
+        isi.innerHTML=batinTeks;
+        if(alasan==="batas"){catatanKecil("Batas penulisan surat hari ini sudah tercapai. Besok Buncil menulis lagi 🧡")}
+        else{catatanKecil("Ini teks cadangan karena Buncil AI sedang istirahat.");tombolUlang()}
+      }
+      function tulis(){
+        box.classList.remove("hangat");box.setAttribute("aria-busy","true");
+        isi.innerHTML='<span class="menulis">Buncil sedang menulis surat khusus untukmu</span>';
+        var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},25000);
+        fetch(API_NARASI,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
+          body:JSON.stringify({sid:sid,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim()})})
+         .then(function(x){if(!x.ok)throw 0;return x.json()})
+         .then(function(d){
+           clearTimeout(to);
+           if(!(d&&d.ok&&(d.surat||d.catatan))){gagal(d&&d.alasan);return}
+           isi.textContent="";
+           if(d.surat){d.surat.split(/\n+/).forEach(function(t){var e=document.createElement("p");e.textContent=t;isi.appendChild(e)})}else{box.classList.add("hangat")}
+           if(d.catatan){var c=document.createElement("div");c.className="catatan-ai";var b=document.createElement("b");b.textContent="🧡 Catatan untuk "+rawOwn+": ";c.appendChild(b);c.appendChild(document.createTextNode(d.catatan));isi.appendChild(c)}
+           catatanKecil("Ditulis oleh Buncil (AI) khusus untuk kalian. Hanya untuk hiburan dan inspirasi, bukan nasihat medis.");
+           tombolUlang();
+         })
+         .catch(function(){gagal()})
+         .then(function(){box.setAttribute("aria-busy","false")});
+      }
+      tulis();
     })();
 
     (function jurnal(){
@@ -637,18 +652,18 @@
         var t=inp.value.trim(); if(!t||n>=MAX) return;
         gelembung(t,true);inp.value="";inp.disabled=true;btn.disabled=true;
         var w=gelembung("Buncil sedang mengetik… ✍️");
-        var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},15000);
+        var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},25000);
         fetch(API_BALAS,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
           body:JSON.stringify({sid:sid,pesan:t,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim()})})
          .then(function(x){if(!x.ok)throw 0;return x.json()})
          .then(function(d){
            clearTimeout(to);
-           if(!d||!d.reply)throw 0;
+           if(!d||!d.reply||d.ok===false)throw 0;
            w.textContent=d.reply;n=Math.min(Math.max(d.n||n+1,n+1),MAX);
            cat.textContent="Interaksi "+n+"/"+MAX+" · Buncil adalah AI, jangan kirim data pribadi.";
            if(d.done||n>=MAX){n=MAX;selesai()}else{inp.disabled=false;btn.disabled=false;inp.focus()}
          })
-         .catch(function(){w.textContent="Buncil sedang istirahat 😴 Yuk lanjutkan ceritanya lewat admin kami.";selesai()});
+         .catch(function(){w.textContent="Buncil sedang istirahat 😴 Pesanmu belum terkirim. Coba kirim lagi sebentar lagi ya.";inp.value=t;inp.disabled=false;btn.disabled=false})
       };
     })();
 
