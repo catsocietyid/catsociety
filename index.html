@@ -100,7 +100,7 @@
   
   /* Dialog Batin Kucing */
   .batin-box { background:#fff8e7; border:2px dashed #f3c26b; border-radius:16px; padding:18px; margin:18px 0; text-align:left; position:relative; }
-  .batin-box::before { content:"💬 Batin Si Juragan:"; font-weight:700; color:var(--cokelat); display:block; margin-bottom:6px; font-size:.95rem; }
+  .batin-box::before { content:attr(data-judul); font-weight:700; color:var(--cokelat); display:block; margin-bottom:6px; font-size:.95rem; }
   .batin-teks { font-style:italic; font-size:1.05rem; color:#444; line-height:1.5; }
   .batin-teks p { margin:0 0 10px; }
   .batin-box.hangat::before { content:"🧡 Catatan Hangat untuk Pawrent:"; }
@@ -120,6 +120,15 @@
   .ajak { background:linear-gradient(135deg, #fff8c9, #ffe6c9); border:2px solid #f0ba63; border-radius:16px; padding:20px; margin:20px 0; text-align:left; box-shadow:0 3px 10px rgba(0,0,0,.05); }
   .ajak h4 { margin:0 0 8px; color:var(--cokelat); font-size:1.1rem; }
   .cerita { background:#f7f9fc; border:1px solid #dce4ec; border-radius:14px; padding:14px 18px; margin:14px 0; text-align:left; }
+  .j-me { background:#fff; border-radius:12px; padding:8px 12px; margin:8px 0; font-style:italic; }
+  .j-info { margin:8px 0; font-size:.92rem; color:#555; }
+  #jLog > div { margin:8px 0; padding:8px 12px; border-radius:12px; max-width:92%; line-height:1.5; white-space:pre-wrap; }
+  #jLog .j-u { background:var(--cokelat); color:#fff; margin-left:auto; }
+  #jLog .j-b { background:#fff8e7; border:1px solid #f3c26b; }
+  .j-form { display:flex; gap:8px; margin:10px 0 6px; }
+  .j-form input { flex:1; padding:9px 14px; border:1px solid #ccc; border-radius:999px; font:inherit; min-width:0; }
+  .j-form button { border:1px solid var(--cokelat); cursor:pointer; font:inherit; }
+  .j-form button:disabled, .j-form input:disabled { opacity:.5; cursor:not-allowed; }
 
   /* Kontak */
   .kontak { padding: 40px 0 64px; }
@@ -351,8 +360,9 @@
    {k:"waktu",t:"6. Waktu luang kamu untuk si meong?",o:[["Banyak (15+ Menit) ⏳","banyak",0,0],["Sebentar (5-10 Menit) ⏱️","sebentar",0,0],["Mepet / Super Sibuk 🚨","mepet",0,0]]}
   ];
 
-  // GANTI dengan alamat Worker Anda + /narasi (sama dengan alamat di chat.js, tetapi berakhiran /narasi)
+  // Alamat Worker diambil dari pengaturan.js (tidak perlu diubah di sini)
   var API_NARASI=(window.CS_WORKER&&window.CS_WORKER.indexOf("GANTI")<0)?window.CS_WORKER+"/narasi":"";
+  var API_BALAS=(window.CS_WORKER&&window.CS_WORKER.indexOf("GANTI")<0)?window.CS_WORKER+"/balas":"";
   function esc(x){return x?x.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]}):""}
   
   // Synthesizer suara "Ngeong" realistis via Web Audio API
@@ -529,8 +539,16 @@
       '<a class="tombol kuning" style="border:1px solid var(--cokelat)" href="'+wa+'" target="_blank" rel="noopener">Chat WhatsApp Pet Sitter 💬</a> '+
       '<a class="tombol" href="#petsitter">Pelajari Layanan Pet Sitter</a></div>' : '';
 
-    var kartuCerita = ceritaUser ? 
+    var kartuLama = ceritaUser ? 
       '<div class="cerita"><b>📖 Jurnal Cerita '+nm+' & '+own+'</b><br>“'+ceritaUser+'”<br><small style="color:#666;">Terima kasih sudah berbagi momen hangat! <a href="'+wa+'" target="_blank" rel="noopener">Bagikan cerita ini ke WhatsApp CatSociety 💬</a></small></div>' : '';
+
+    var kartuCerita = API_BALAS ?
+      ('<div class="cerita" id="jurnal"><b>📖 Jurnal Cerita '+nm+' & '+own+'</b>'+
+       (ceritaUser?'<div class="j-me">“'+ceritaUser+'”</div>':'<p class="j-info">Ceritakan momen lucu atau manis tentang '+nm+', dan Buncil akan menanggapinya! 🐾</p>')+
+       '<div id="jLog" role="log" aria-live="polite"></div>'+
+       '<form id="jForm" class="j-form"><input type="text" id="jInp" maxlength="400" placeholder="Ceritakan lebih banyak tentang '+nm+'…" aria-label="Cerita tentang anabul"><button type="submit" id="jBtn" class="tombol kuning">Kirim</button></form>'+
+       '<small id="jCat" style="color:#666">Interaksi 0/4 · Buncil adalah AI, jangan kirim data pribadi.</small>'+
+       '<div id="jMenu"></div></div>') : kartuLama;
 
     var batinTeks = buatBatinKucing(nm, own, m[1], pilih.sikap, pilih.aku);
 
@@ -540,7 +558,7 @@
      '<h3 style="font-size:1.6rem; justify-content:center; margin-bottom:4px;">'+(namaCat?namaCat+": ":"")+m[1]+'</h3>'+
      '<p style="margin:0 0 12px; color:#555; font-size:.95rem;">Analisis Pasangan: <b>'+nm+'</b> & <b>'+own+'</b></p>'+
      
-     '<div class="batin-box" id="batinBox" aria-busy="false"><div class="batin-teks" id="batinIsi">'+batinTeks+'</div></div>'+
+     '<div class="batin-box" id="batinBox" data-judul="💌 Surat dari '+nm+':" aria-busy="false"><div class="batin-teks" id="batinIsi">'+batinTeks+'</div></div>'+
 
      '<div class="meter-container">'+
        '<div class="meter-label"><span>Skor Sinergi Hubungan Kalian</span><span>'+sinergi+'%</span></div>'+
@@ -552,7 +570,7 @@
      '<div style="margin:14px 0">'+
        '<div class="lencana">'+lv+'</div>'+
        '<div class="lencana">Check-in Hari ke-'+n+' 🔥</div>'+
-       (ceritaUser?'<div class="lencana">📖 Cerita Terrekam</div>':"")+
+       (ceritaUser?'<div class="lencana">📖 Cerita Terekam</div>':"")+
      '</div>'+
 
      kartuCerita+
@@ -603,6 +621,35 @@
        })
        .catch(function(){isi.innerHTML=batinTeks})
        .then(function(){box.setAttribute("aria-busy","false")});
+    })();
+
+    (function jurnal(){
+      var form=$("jForm"); if(!form||!API_BALAS) return;
+      var log=$("jLog"),inp=$("jInp"),btn=$("jBtn"),cat=$("jCat"),n=0,MAX=4;
+      var sid; try{sid=localStorage.getItem("cs_sid");if(!sid){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36);localStorage.setItem("cs_sid",sid)}}catch(e){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36)}
+      function gelembung(t,me){var d=document.createElement("div");d.className=me?"j-u":"j-b";d.textContent=t;log.appendChild(d);return d}
+      function selesai(){
+        inp.disabled=true;btn.disabled=true;inp.placeholder="Interaksi selesai. Terima kasih sudah bercerita! 🧡";
+        $("jMenu").innerHTML='<div class="ajak"><h4>🧡 Terima kasih sudah bercerita!</h4><p style="margin:0 0 10px;font-size:.92rem">Mau lanjut ngobrol dengan tim kami, atau yuk belanja kebutuhan si juragan?</p><a class="tombol kuning" style="border:1px solid var(--cokelat)" href="'+wa+'" target="_blank" rel="noopener">💬 Ngobrol dengan admin</a> '+tombol()+'</div>';
+      }
+      form.onsubmit=function(e){
+        e.preventDefault();
+        var t=inp.value.trim(); if(!t||n>=MAX) return;
+        gelembung(t,true);inp.value="";inp.disabled=true;btn.disabled=true;
+        var w=gelembung("Buncil sedang mengetik… ✍️");
+        var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},15000);
+        fetch(API_BALAS,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
+          body:JSON.stringify({sid:sid,pesan:t,jawab:pilih,cuaca:W,mood:KEY[m[1]],nama:$("nama").value.trim(),pemilik:$("namaOwner").value.trim(),cerita:$("cerita").value.trim()})})
+         .then(function(x){if(!x.ok)throw 0;return x.json()})
+         .then(function(d){
+           clearTimeout(to);
+           if(!d||!d.reply)throw 0;
+           w.textContent=d.reply;n=Math.min(Math.max(d.n||n+1,n+1),MAX);
+           cat.textContent="Interaksi "+n+"/"+MAX+" · Buncil adalah AI, jangan kirim data pribadi.";
+           if(d.done||n>=MAX){n=MAX;selesai()}else{inp.disabled=false;btn.disabled=false;inp.focus()}
+         })
+         .catch(function(){w.textContent="Buncil sedang istirahat 😴 Yuk lanjutkan ceritanya lewat admin kami.";selesai()});
+      };
     })();
 
     $("ulang").onclick=function(){
