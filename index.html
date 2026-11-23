@@ -39,8 +39,18 @@
   .hero-teks h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.25; margin: 0 0 24px; }
   .hero-teks h1 span { color: var(--kuning); font-weight: 700; }
   .hero-teks p { margin: 0 0 4px; font-size: .95rem; }
-  .hero-foto { border-radius: 24px; overflow: hidden; min-height: 320px; }
+  .hero-foto { border-radius: 24px; overflow: hidden; min-height: 520px; display: grid; grid-template-rows: 55fr 45fr; gap: 6px; background: #fff; }
   .hero-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .foto-atas { min-height: 0; overflow: hidden; }
+  .ig-kartu { position: relative; display: block; overflow: hidden; min-height: 220px; color: #fff; text-decoration: none; background: linear-gradient(135deg,#515bd4,#8134af 40%,#dd2a7b 70%,#feda77); }
+  .ig-kartu > img { position: absolute; inset: 0; }
+  .ig-lapis { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.05) 60%, rgba(0,0,0,.35)); }
+  .ig-atas { position: absolute; top: 12px; left: 14px; right: 14px; display: flex; justify-content: space-between; gap: 8px; font-size: .8rem; font-weight: 700; }
+  .ig-atas span { background: rgba(0,0,0,.45); padding: 4px 10px; border-radius: 99px; }
+  .ig-bawah { position: absolute; left: 16px; right: 16px; bottom: 14px; }
+  .ig-bawah p { margin: 0 0 6px; font-size: .9rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .ig-bawah small { opacity: .92; }
+  .ig-kartu:focus-visible { outline: 3px solid #1a73e8; outline-offset: -3px; }
   .aksi { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
   .tombol { display: inline-block; padding: 10px 22px; border-radius: 999px; font-size: .9rem; text-decoration: none; color: var(--cokelat); background: #fff; font-weight: 600; border: none; cursor: pointer; text-align: center; }
   .tombol.kuning { background: var(--kuning); }
@@ -153,6 +163,9 @@
   /* HP Responsive */
   @media (max-width: 800px) {
     .hero, .belanja .bungkus, .sitter .isi, .kontak .bungkus { grid-template-columns: 1fr; }
+    .hero-foto { min-height: 0; grid-template-rows: auto auto; }
+    .foto-atas { aspect-ratio: 4 / 3; }
+    .ig-kartu { min-height: 300px; }
     .hero-teks { padding: 36px 24px; }
     .sitter .foto { grid-template-columns: 1fr 1fr; }
     .info { grid-template-columns: 1fr; }
@@ -200,7 +213,12 @@
       </div>
     </div>
     <div class="hero-foto">
-      <img src="hero.jpg" alt="Kucing persia oranye putih duduk di dekat jendela" width="600" height="700">
+      <div class="foto-atas"><img src="hero.jpg" alt="Anak kucing berbulu abu-abu berbaring di sofa gelap" width="600" height="420"></div>
+      <a class="ig-kartu" id="igKartu" href="https://www.instagram.com/catsocietyid/" target="_blank" rel="noopener" aria-label="Buka Instagram CatSociety">
+        <div class="ig-lapis"></div>
+        <div class="ig-atas"><span>📸 Terbaru di Instagram</span><span>@catsocietyid</span></div>
+        <div class="ig-bawah"><p id="igCap">Ikuti petualangan para juragan di Instagram @catsocietyid 🐾</p><small id="igMeta">Lihat di Instagram ➜</small></div>
+      </a>
     </div>
   </section>
 
@@ -674,6 +692,30 @@
       $("mood").scrollIntoView({behavior:"smooth"});
     };
   };
+})();
+</script>
+<script>
+(function(){
+  var k=document.getElementById("igKartu"); if(!k) return;
+  var base=(window.CS_WORKER&&window.CS_WORKER.indexOf("GANTI")<0)?window.CS_WORKER:"";
+  if(!base) return; // belum diatur: kartu tetap menampilkan ajakan mengikuti Instagram
+  function tgl(s){try{return new Date(s).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}catch(e){return ""}}
+  var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},12000);
+  fetch(base+"/instagram",{signal:ctl.signal})
+   .then(function(r){if(!r.ok)throw 0;return r.json()})
+   .then(function(d){
+     clearTimeout(to);
+     if(!d||!d.ok||!/^https:\/\//i.test(d.gambar||"")||!/^https:\/\/(www\.)?instagram\.com\//i.test(d.tautan||"")) return;
+     var img=new Image();img.alt="Postingan terbaru Instagram CatSociety";img.referrerPolicy="no-referrer";
+     img.onload=function(){
+       k.insertBefore(img,k.firstChild);k.href=d.tautan;
+       document.getElementById("igCap").textContent=d.keterangan||"Lihat postingan terbaru kami di Instagram 🐾";
+       document.getElementById("igMeta").textContent=(d.tipe==="VIDEO"?"▶ ":"")+(d.waktu?tgl(d.waktu)+" · ":"")+"Lihat di Instagram ➜";
+       k.setAttribute("aria-label","Buka postingan terbaru CatSociety di Instagram");
+     };
+     img.src=d.gambar;
+   })
+   .catch(function(){});
 })();
 </script>
 </body>
