@@ -34,15 +34,21 @@
   nav a.aktif, nav a:hover { background: var(--cokelat); color: #fff; border-radius: 6px; }
 
   /* Hero */
-  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px auto; }
-  .hero-teks { background: var(--cokelat); color: #fff; border-radius: 24px; padding: 48px 36px; display: flex; flex-direction: column; justify-content: center; }
+  .hero { display: grid; grid-template-columns: 1fr; gap: 24px; margin: 40px auto; }
+  .hero-teks { background: var(--cokelat); color: #fff; border-radius: 24px; padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; }
   .hero-teks h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.25; margin: 0 0 24px; }
   .hero-teks h1 span { color: var(--kuning); font-weight: 700; }
-  .hero-teks p { margin: 0 0 4px; font-size: .95rem; }
-  .hero-foto { border-radius: 24px; overflow: hidden; min-height: 520px; display: grid; grid-template-rows: 55fr 45fr; gap: 6px; background: #fff; }
+  .hero-teks p { margin: 0 0 4px; font-size: .95rem; max-width: 64ch; }
+  @media (min-width: 801px) {
+    .hero-teks { display: grid; grid-template-columns: 1fr 1.15fr; column-gap: 56px; align-items: center; padding: 44px 56px; }
+    .hero-teks h1 { grid-column: 1; grid-row: 1; align-self: end; margin: 0 0 20px; }
+    .hero-teks .aksi { grid-column: 1; grid-row: 2; align-self: start; margin-top: 0; }
+    .hero-teks .teks-isi { grid-column: 2; grid-row: 1 / span 2; }
+  }
+  .hero-foto { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .hero-foto img { width: 100%; height: 100%; object-fit: cover; }
-  .foto-atas { min-height: 0; overflow: hidden; }
-  .ig-kartu { position: relative; display: block; overflow: hidden; min-height: 220px; color: #fff; text-decoration: none; background: linear-gradient(135deg,#515bd4,#8134af 40%,#dd2a7b 70%,#feda77); }
+  .foto-atas { height: 380px; border-radius: 24px; overflow: hidden; background: #ead9cf; }
+  .ig-kartu { position: relative; display: block; overflow: hidden; height: 380px; border-radius: 24px; color: #fff; text-decoration: none; background: linear-gradient(135deg,#515bd4,#8134af 40%,#dd2a7b 70%,#feda77); }
   .ig-kartu > img { position: absolute; inset: 0; }
   .ig-lapis { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.05) 60%, rgba(0,0,0,.35)); }
   .ig-atas { position: absolute; top: 12px; left: 14px; right: 14px; display: flex; justify-content: space-between; gap: 8px; font-size: .8rem; font-weight: 700; }
@@ -163,9 +169,9 @@
   /* HP Responsive */
   @media (max-width: 800px) {
     .hero, .belanja .bungkus, .sitter .isi, .kontak .bungkus { grid-template-columns: 1fr; }
-    .hero-foto { min-height: 0; grid-template-rows: auto auto; }
-    .foto-atas { aspect-ratio: 4 / 3; }
-    .ig-kartu { min-height: 300px; }
+    .hero-foto { grid-template-columns: 1fr; }
+    .foto-atas { height: auto; aspect-ratio: 4 / 3; }
+    .ig-kartu { height: auto; min-height: 340px; }
     .hero-teks { padding: 36px 24px; }
     .sitter .foto { grid-template-columns: 1fr 1fr; }
     .info { grid-template-columns: 1fr; }
@@ -201,12 +207,14 @@
   <section id="home" class="bungkus hero">
     <div class="hero-teks">
       <h1>Semua yang<br><span>Kucing</span> Kamu Suka</h1>
+      <div class="teks-isi">
       <p>Hello, Cat Lovers! 🐾</p>
       <p>Selamat datang di CatSociety!</p>
       <p>Tempat makanan favorit si meong, kebutuhan hariannya, dan segala hal kecil yang bikin hidup mereka lebih happy.</p>
       <p>Karena buat kita, anabul bukan sekadar keluarga…</p>
       <p>Psst… sebenarnya dia juragan yang sedang menyamar. 😼</p>
       <p>Happy Cats, Happy Humans. 🧡</p>
+      </div>
       <div class="aksi">
         <a class="tombol kuning" href="#mood">Cek Mood Anabul 🐾</a>
         <a class="tombol" href="#shop">Belanja Sekarang</a>
