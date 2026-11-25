@@ -13,7 +13,7 @@
     --cokelat: #93371d;
     --krem: #ffffff;
     --kuning: #fffb8f;
-    --biru: #2fa4c9;
+    --biru: #17667f;
     --hijau: #2e9e2e;
     --ungu: #3b1fc4;
     --teks: #333333;
@@ -30,7 +30,7 @@
   header .bungkus { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; flex-wrap: wrap; }
   .logo img { width: 150px; background: transparent; }
   nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
-  nav a { display: block; padding: 8px 16px; color: var(--teks); text-decoration: none; font-size: .95rem; }
+  nav a { display: flex; align-items: center; min-height: 44px; padding: 8px 16px; color: var(--teks); text-decoration: none; font-size: .95rem; }
   nav a.aktif, nav a:hover { background: var(--cokelat); color: #fff; border-radius: 6px; }
 
   /* Hero */
@@ -97,7 +97,7 @@
   .mood legend { font-weight:700; margin-bottom:8px; color:#444; font-size:.95rem; }
   .pil { position:relative; margin:2px; }
   .pil input { position:absolute; opacity:0; }
-  .pil span { display:inline-block; padding:9px 18px; border:2px solid #e4c9bb; border-radius:999px; font-size:.9rem; background:#fff; transition:all .2s; }
+  .pil span { display:inline-flex; align-items:center; min-height:44px; padding:9px 18px; border:2px solid #e4c9bb; border-radius:999px; font-size:.9rem; background:#fff; transition:all .2s; }
   .pil input:checked + span { background:var(--cokelat); color:#fff; border-color:var(--cokelat); font-weight:600; box-shadow:0 2px 6px rgba(147,55,29,0.3); }
   .pil input:focus-visible + span { outline:3px solid #1a73e8; outline-offset:2px; }
   #cuaca { margin:12px 0 0; font-weight:600; min-height:1.4em; color:var(--cokelat); }
@@ -121,7 +121,7 @@
   .batin-teks p { margin:0 0 10px; }
   .batin-box.hangat::before { content:"🧡 Catatan Hangat untuk Pawrent:"; }
   .catatan-ai { font-style:normal; background:#fff; border-radius:12px; padding:10px 14px; margin-top:10px; font-size:.95rem; }
-  .tag-ai { display:block; font-style:normal; font-size:.75rem; color:#777; margin-top:10px; }
+  .tag-ai { display:block; font-style:normal; font-size:.75rem; color:#666; margin-top:10px; }
   .menulis::after { content:"…"; animation:titik 1.2s infinite; }
   @keyframes titik { 0%{opacity:.2} 50%{opacity:1} 100%{opacity:.2} }
   @media (prefers-reduced-motion: reduce) { .menulis::after { animation:none; } }
@@ -131,7 +131,7 @@
   .catatan { font-size:.82rem; color:#666; }
   .cokelat-note { background:#fde8e1; border-left:4px solid var(--cokelat); border-radius:8px; padding:12px 16px; font-size:.9rem; text-align:left; margin:16px 0; color:#82260f; }
 
-  .mood .chip { border:1px dashed var(--cokelat); background:#fff; color:var(--cokelat); padding:5px 14px; border-radius:999px; font-size:.82rem; cursor:pointer; font-weight:600; }
+  .mood .chip { border:1px dashed var(--cokelat); background:#fff; color:var(--cokelat); padding:8px 14px; min-height:44px; border-radius:999px; font-size:.82rem; cursor:pointer; font-weight:600; }
   .mood .chip:hover { background:var(--cokelat); color:#fff; }
   .ajak { background:linear-gradient(135deg, #fff8c9, #ffe6c9); border:2px solid #f0ba63; border-radius:16px; padding:20px; margin:20px 0; text-align:left; box-shadow:0 3px 10px rgba(0,0,0,.05); }
   .ajak h4 { margin:0 0 8px; color:var(--cokelat); font-size:1.1rem; }
@@ -166,6 +166,15 @@
   footer a:hover { text-decoration: underline; }
   footer a:first-child { margin-left: 0; }
 
+
+  @media (max-width: 800px) { nav ul { flex-wrap: nowrap; justify-content: center; gap: 0; } nav a { padding: 8px 9px; font-size: .88rem; white-space: nowrap; } }
+  @media (max-width: 340px) { nav a { padding: 8px 6px; font-size: .82rem; } }
+  .tim { font-size: .8rem; opacity: .9; }
+  .tim a { margin-left: 10px; }
+  .wa-float { display: none; position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 999px; background: #0a6b46; color: #fff; font-weight: 700; font-size: .95rem; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,.28); }
+  .wa-float:focus-visible { outline: 3px solid #fff; box-shadow: 0 0 0 6px #1a73e8; }
+  @media (max-width: 800px) { .wa-float { display: inline-flex; } body { padding-bottom: 84px; } }
+  @media print { .wa-float { display: none !important; } }
   /* HP Responsive */
   @media (max-width: 800px) {
     .hero, .belanja .bungkus, .sitter .isi, .kontak .bungkus { grid-template-columns: 1fr; }
@@ -181,6 +190,81 @@
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .emoji-header { animation:none; } }
 </style>
 <script src="pengaturan.js"></script>
+<link rel="canonical" href="https://catsociety.web.id/">
+<meta name="theme-color" content="#93371d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CatSociety">
+<meta property="og:locale" content="id_ID">
+<meta property="og:title" content="CatSociety – Semua yang Kucing Kamu Suka">
+<meta property="og:description" content="CatSociety: makanan, kebutuhan harian, aksesori, dan layanan pet sitter untuk anabul. Bintaro, Tangerang Selatan.">
+<meta property="og:url" content="https://catsociety.web.id/">
+<meta property="og:image" content="https://catsociety.web.id/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CatSociety: Semua yang Kucing Kamu Suka. Toko dan pet sitter di Bintaro, Tangerang Selatan.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CatSociety – Semua yang Kucing Kamu Suka">
+<meta name="twitter:description" content="CatSociety: makanan, kebutuhan harian, aksesori, dan layanan pet sitter untuk anabul. Bintaro, Tangerang Selatan.">
+<meta name="twitter:image" content="https://catsociety.web.id/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PetStore",
+  "@id": "https://catsociety.web.id/#toko",
+  "name": "CatSociety",
+  "url": "https://catsociety.web.id/",
+  "image": "https://catsociety.web.id/og-image.png",
+  "logo": "https://catsociety.web.id/logo.png",
+  "description": "Toko makanan, kebutuhan harian, dan aksesori kucing serta layanan pet sitter di Bintaro, Tangerang Selatan.",
+  "telephone": "+6289654978033",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Cempaka Raya No.8, Rengas",
+    "addressLocality": "Tangerang Selatan",
+    "addressRegion": "Banten",
+    "postalCode": "15412",
+    "addressCountry": "ID"
+  },
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Bintaro, Tangerang Selatan"
+    }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/catsocietyid/"
+  ],
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Pet Sitter",
+        "areaServed": "Bintaro, Tangerang Selatan"
+      }
+    }
+  ],
+  "hasMap": "https://maps.app.goo.gl/YTKYuK58QKucSRoNA"
+}
+</script>
 </head>
 <body>
 
@@ -189,14 +273,10 @@
     <a class="logo" href="#home"><img src="logo.png" alt="Logo CatSociety" width="150" height="150"></a>
     <nav aria-label="Menu utama">
       <ul>
-        <li><a class="aktif" href="#home">Home</a></li>
-        <li><a href="#shop">Shop</a></li>
-        <li><a href="katalog.html">Katalog</a></li>
+        <li><a href="katalog.html">Belanja</a></li>
         <li><a href="#mood">Mood Anabul</a></li>
         <li><a href="#petsitter">Pet Sitter</a></li>
         <li><a href="#kontak">Kontak</a></li>
-        <li><a href="https://erp.catsociety.web.id/login?redirect-to=%2Fdesk" target="_blank" rel="noopener">Internal Access</a></li>
-        <li><a href="https://mail.zoho.com/zm/#mail/folder/inbox" target="_blank" rel="noopener">Login Email</a></li>
       </ul>
     </nav>
   </div>
@@ -290,7 +370,7 @@
           <button class="btn alt" type="button" data-cuaca="hujan">🌧️ Hujan</button>
         </div>
         <p id="cuaca" aria-live="polite"></p>
-        <p class="catatan">Privasi terjamin: Lokasi hanya diproses secara lokal di browser kamu.</p>
+        <p class="catatan">Privasi: lokasi hanya dipakai untuk mengambil cuaca dan tidak kami simpan. Cerita yang kamu tulis diproses AI untuk menulis suratnya, jadi jangan tulis data pribadi seperti alamat atau nomor telepon.</p>
       </div>
 
       <div class="kotak">
@@ -335,7 +415,8 @@
           <div>
             <div class="ikon" aria-hidden="true">📍</div>
             <h3>Lokasi <b>Kami</b></h3>
-            <p>Bintaro, Tangerang Selatan</p>
+            <p>Jl. Cempaka Raya No.8, Rengas, Tangerang Selatan, Banten 15412</p>
+            <p><a href="https://maps.app.goo.gl/YTKYuK58QKucSRoNA" target="_blank" rel="noopener">Buka di Google Maps ➜</a></p>
           </div>
           <div>
             <div class="ikon" aria-hidden="true">📸</div>
@@ -367,9 +448,12 @@
     <span>© CatSociety · catsociety.web.id</span>
     <span>
       <a href="katalog.html">Katalog</a>
+      <a href="https://maps.app.goo.gl/YTKYuK58QKucSRoNA" target="_blank" rel="noopener">Lokasi</a>
       <a href="https://www.instagram.com/catsocietyid/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://erp.catsociety.web.id/login?redirect-to=%2Fdesk" target="_blank" rel="noopener">Internal Access</a>
-      <a href="https://mail.zoho.com/zm/#mail/folder/inbox" target="_blank" rel="noopener">Login Webmail</a>
+    </span>
+    <span class="tim">Khusus tim:
+      <a href="https://erp.catsociety.web.id/login?redirect-to=%2Fdesk" target="_blank" rel="noopener noreferrer nofollow">Internal Access</a>
+      <a href="https://mail.zoho.com/zm/#mail/folder/inbox" target="_blank" rel="noopener noreferrer nofollow">Login Webmail</a>
     </span>
   </div>
 </footer>
@@ -726,5 +810,6 @@
    .catch(function(){});
 })();
 </script>
+<a class="wa-float" href="https://wa.me/6289654978033?text=Halo%20CatSociety!%20Saya%20mau%20tanya-tanya%20%F0%9F%90%BE" target="_blank" rel="noopener" aria-label="Chat WhatsApp CatSociety"><span aria-hidden="true">💬</span> Chat WhatsApp</a>
 </body>
 </html>
